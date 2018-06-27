@@ -14,8 +14,17 @@
     "compass": "gulp compass",
     "gemCompass": "gem sources -a https://ruby.taobao.org/ --remove https://rubygems.org/ && gem install compass -v 1.0.3"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex86gbk/js-multi-seed.git"
+  },
+  "keywords": [
+    "multi",
+    "seed",
+    "jquery",
+    "react"
+  ],
+  "author": "alex86gbk",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^8.2.0",
