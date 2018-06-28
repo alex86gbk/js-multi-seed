@@ -10,7 +10,10 @@ const devServerProxy = process.env.API === "local" ?
     "/api": "http://localhost:3000/api"
   } :
   {
-    "/api": "http://10.0.2.231:3333/mock/XX"
+    "/api": {
+      target: "http://10.0.2.231:3333/mock/XX",
+      pathRewrite: {'^/api' : ''}
+    }
   };
 const devServerRunAfter = process.env.API === "local" ?
   function () {
