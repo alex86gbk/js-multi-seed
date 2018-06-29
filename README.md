@@ -75,15 +75,24 @@ npm run build
 │  │          └─16.4.1
 │  │                  react-dom.min.js
 │  │                  react.min.js
+│  │      ...
 │  │
 │  ├─components                           # 模块化组件 
 │  │      List.jsx
 │  │      List.less
 │  │      ...
 │  │
-│  └─pages                                # 页面（业务）入口
-│          index.css
-│          index.js
+│  ├─pages                                # 页面（业务）入口
+│  │      index.css
+│  │      index.js
+│  │      ...
+│  │
+│  ├─services                             # 异步请求（接口）
+│  │      indexServices.js
+│  │      ...
+│  │      
+│  └─utils                                # 工具
+│          request.js
 │          ...
 │
 └─templates                                
@@ -107,6 +116,11 @@ npm run build
 - 位于 `/src/components` 文件夹下的文件一律**首字母大写**（这里面的都是React组件或可复用的类）；
 - React 组件，为更好区分以 **.jsx** 为扩展名；
 - 其他（文件夹/文件）命名应遵循驼峰式规范。
+
+## 异步请求（接口）
+- `/src/services` 文件夹下的文件对应业务模块或者通用模块的异步请求声明；
+- 在开发时为了能快速定位并区分业务模块和异步请求模块。`/src/services` 文件夹下的文件以**业务模块命名**开头，**Services**结尾；
+  > 如：`/src/services/`**indexServices.js** 对应 `/src/pages/`**index.js**
 
 ## 文件组织
 遵循《**就近原则**》。

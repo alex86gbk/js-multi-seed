@@ -7,7 +7,10 @@ const plugins = require('./config/plugins');
 const { exec } = require("child_process");
 const devServerProxy = process.env.API === "local" ?
   {
-    "/api": "http://localhost:3000/api"
+    "/api": {
+      target: "http://localhost:3000/api",
+      pathRewrite: {'^/api' : ''}
+    }
   } :
   {
     "/api": {
@@ -47,9 +50,8 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["react", [
-              "env",
-              {
+            presets: [
+              ["env", {
                 "targets": {
                   "browsers": [
                     "ie > 8",
@@ -57,8 +59,7 @@ module.exports = {
                   ]
                 },
                 "useBuiltIns": true
-              }
-            ]],
+              }], "react", "stage-0"],
             plugins: ["transform-runtime"]
           }
         },

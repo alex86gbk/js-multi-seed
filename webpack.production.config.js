@@ -50,9 +50,8 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["react", [
-              "env",
-              {
+            presets: [
+              ["env", {
                 "targets": {
                   "browsers": [
                     "ie > 8",
@@ -60,8 +59,7 @@ module.exports = {
                   ]
                 },
                 "useBuiltIns": true
-              }
-            ]],
+              }], "react", "stage-0"],
             plugins: ["transform-runtime"]
           }
         },
