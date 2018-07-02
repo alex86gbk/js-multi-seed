@@ -122,6 +122,8 @@ npm run build
 - 在开发时为了能快速定位并区分业务模块和异步请求模块。`/src/services` 文件夹下的文件以**业务模块命名**开头，**Services**结尾；
   > 如：`/src/services/`**indexServices.js** 对应 `/src/pages/`**index.js**
 
+传送门：[issue 集中式申明，管理异步请求接口](https://github.com/alex86gbk/js-multi-seed/issues/2)
+
 ## 文件组织
 遵循《**就近原则**》。
 - `/src/pages` 文件夹下的页面 **.js** 和 **.css** 文件，应处于同一层级的文件夹下。

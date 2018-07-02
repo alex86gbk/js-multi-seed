@@ -31,6 +31,7 @@ const devServerRunAfter = process.env.API === "local" ?
 
 module.exports = {
   mode: "development",
+  devtool: "source-map",
   entry: entry,
   output: {
     path: __dirname + "/public"
