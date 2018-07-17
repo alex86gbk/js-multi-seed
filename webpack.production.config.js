@@ -8,7 +8,7 @@ const entry = require('./config/entry');
 const plugins = require('./config/plugins');
 
 plugins.push(
-  new CleanWebpackPlugin("dist/*.*", {
+  new CleanWebpackPlugin("./dist/**/*.*", {
     root: __dirname,
     verbose: true,
     dry: false
