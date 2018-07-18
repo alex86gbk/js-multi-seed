@@ -16,7 +16,7 @@ gulp.task('compass', function () {
 });
 
 gulp.task('rev', function () {
-  return gulp.src(['./dist/**/*.css', './dist/**/*.js'])
+  return gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/assets/**/*.*'])
     .pipe(rev())
     .pipe(gulp.dest('./dist'))
     .pipe(rev.manifest())
@@ -30,7 +30,7 @@ gulp.task('revCollector', function () {
 });
 
 gulp.task('cleanOriginal', function () {
-  return del(['./dist/**/*.*', '!' + './dist/**/*-*.*']);
+  return del(['./dist/**/*.js', './dist/**/*.css', '!./dist/assets/**/*.*', '!./dist/**/*-*.js', '!./dist/**/*-*.css']);
 });
 
 gulp.task('version', gulpSequence('rev', 'revCollector', 'cleanOriginal'));
