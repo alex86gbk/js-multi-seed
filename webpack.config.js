@@ -75,7 +75,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true
+              modules: false
             }
           },
           {
@@ -115,6 +115,8 @@ module.exports = {
   externals: {
     "jQuery": "window.jQuery",
     "React": "window.React",
-    "ReactDOM": "window.ReactDOM"
+    "ReactDOM": "window.ReactDOM",
+    "react": "window.React",
+    "react-dom": "window.ReactDOM"
   },
 };
