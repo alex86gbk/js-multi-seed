@@ -61,7 +61,10 @@ module.exports = {
                 },
                 "useBuiltIns": true
               }], "react", "stage-0"],
-            plugins: ["transform-runtime"]
+            plugins: [
+              "transform-runtime",
+              ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+            ]
           }
         },
         exclude: /node_modules/
