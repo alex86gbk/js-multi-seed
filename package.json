@@ -1,6 +1,6 @@
 {
   "name": "js-multi-seed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Multi page hybrid application. While supporting new features such as react and ES6, it is compatible with the use of traditional web technologies such as jQuery.",
   "main": "",
   "scripts": {
@@ -29,6 +29,7 @@
   "devDependencies": {
     "autoprefixer": "^8.2.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-import": "^1.8.0",
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -37,6 +38,7 @@
     "connect-timeout": "^1.9.0",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
+    "del": "^3.0.0",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
@@ -61,6 +63,7 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
+    "antd": "^3.7.3",
     "axios": "^0.18.0",
     "babel-runtime": "^6.9.2",
     "js-url-helper": "0.1.0",

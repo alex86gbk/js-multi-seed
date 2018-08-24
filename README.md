@@ -163,7 +163,7 @@ $("#accordion").accordion();
 - CSS
 - Sass
 - Less
-- CSS Modules
+- CSS Modules (*.less only)
 
 ## 扩展
 TODOs:

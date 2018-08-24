@@ -61,7 +61,10 @@ module.exports = {
                 },
                 "useBuiltIns": true
               }], "react", "stage-0"],
-            plugins: ["transform-runtime"]
+            plugins: [
+              "transform-runtime",
+              ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+            ]
           }
         },
         exclude: /node_modules/
@@ -75,7 +78,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true
+              modules: false
             }
           },
           {
@@ -115,6 +118,8 @@ module.exports = {
   externals: {
     "jQuery": "window.jQuery",
     "React": "window.React",
-    "ReactDOM": "window.ReactDOM"
+    "ReactDOM": "window.ReactDOM",
+    "react": "window.React",
+    "react-dom": "window.ReactDOM"
   },
 };
