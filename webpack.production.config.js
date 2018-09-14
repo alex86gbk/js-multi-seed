@@ -51,18 +51,38 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
-              ["env", {
-                "targets": {
-                  "browsers": [
-                    "ie > 8",
-                    "last 2 versions"
-                  ]
-                },
-                "useBuiltIns": true
-              }], "react", "stage-0"],
+              [
+                "env",
+                {
+                  "targets": {
+                    "browsers": [
+                      "ie > 8",
+                      "last 2 versions"
+                    ]
+                  },
+                  "useBuiltIns": true
+                }
+              ],
+              "react",
+              "stage-0"
+            ],
             plugins: [
               "transform-runtime",
-              ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+              [
+                "import",
+                {
+                  "libraryName": "antd",
+                  "libraryDirectory": "es",
+                  "style": "css"
+                }
+              ],
+              [
+                "component",
+                {
+                  "libraryName": "element-ui",
+                  "styleLibraryName": "theme-chalk"
+                }
+              ]
             ]
           }
         },
@@ -112,6 +132,19 @@ module.exports = {
         exclude: /assets/
       },
       {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: 'vue-style-loader!css-loader',
+            less: 'vue-style-loader!css-loader!less-loader'
+          },
+          postLoaders: {
+            html: 'babel-loader'
+          }
+        }
+      },
+      {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
         loader: 'url-loader?limit=8192&name=assets/images/[hash:8].[name].[ext]'
       }
@@ -123,6 +156,7 @@ module.exports = {
     "React": "window.React",
     "ReactDOM": "window.ReactDOM",
     "react": "window.React",
-    "react-dom": "window.ReactDOM"
+    "react-dom": "window.ReactDOM",
+    "vue": "window.Vue"
   },
 };

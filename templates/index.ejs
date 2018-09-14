@@ -7,11 +7,19 @@
   <meta content="yes" name="apple-mobile-web-app-capable">
   <meta content="yes" name="apple-touch-fullscreen">
   <meta content="telephone=no,email=no" name="format-detection">
-  <title>Hello!</title>
+  <title>Hello! js-multi-seed</title>
   ${require("html-loader?interpolate!./_assets.html")}
 </head>
 
-<body>
-<div id="main"></div>
+<body class="demo">
+<fieldset>
+  <legend>Hi React !</legend>
+  <div id="react_app"></div>
+</fieldset>
+
+<fieldset>
+  <legend>Hi Vue !</legend>
+  <div id="vue_app"></div>
+</fieldset>
 </body>
 </html>
