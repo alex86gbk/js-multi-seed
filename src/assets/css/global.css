@@ -1,0 +1,13 @@
+.example {
+  color: red;
+  padding: 10px 0;
+}
+.demo fieldset {
+  border: 1px solid #dddddd;
+  margin: 10px;
+  padding: 10px;
+}
+.demo fieldset legend {
+  padding: 0 10px;
+  width: inherit;
+}

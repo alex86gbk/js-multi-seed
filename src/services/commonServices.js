@@ -1,13 +1,13 @@
 import request from '../utils/request';
 
 /**
- * 获取所有年级
+ * 获取列表
  * @param params
  * @return {Promise.<Object>}
  */
-export async function getGrades(params) {
+export async function getList(params) {
   return request({
-    url: '/api/common/getGrades',
+    url: '/api/common/getList',
     method: "POST",
     data: params.payload
   });

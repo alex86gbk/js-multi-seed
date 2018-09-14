@@ -3,6 +3,7 @@ const Glob = require('glob').Glob;
 
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const options = {
   cwd: path.resolve(__dirname, '../', 'templates'),
@@ -24,5 +25,7 @@ globInstance.found.forEach((page) => {
     })
   );
 });
+
+plugins.push(new VueLoaderPlugin);
 
 module.exports = plugins;

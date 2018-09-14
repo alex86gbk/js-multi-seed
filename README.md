@@ -1,5 +1,5 @@
 # 介绍
-本项目为多页混合型应用。在支持react，es6等新特性的同时，兼容jQuery等传统web技术的使用。
+本项目为多页混合型应用。在支持React、Vue技术和es6新特性的同时，兼容jQuery等传统web技术的使用。
 
 # 是否兼容IE 8
 No !
@@ -39,7 +39,6 @@ npm run build
 │  .editorconfig                          # 编辑器配置文件，如缩进风格，大小等
 │  config.rb                              # compass 配置文件，如使用 sass 则需用到
 │  gulpfile.js                            # gulp 任务，发布流程中的一环
-│  package-lock.json                      # npm 包，版本锁定文件，保持环境完全一致
 │  package.json                           # 项目申明，命令，依赖等描述
 │  postcss.config.js                      # postcss 配置文件
 │  README.md                              # 介绍文档（本文件）
@@ -70,30 +69,35 @@ npm run build
 │  │      ├─jQuery
 │  │      │  └─1.12.4
 │  │      │          jquery.min.js
+│  │      │          
+│  │      ├─react
+│  │      │  └─16.4.1
+│  │      │          react-dom.min.js
+│  │      │          react.min.js
 │  │      │
-│  │      └─react
-│  │          └─16.4.1
-│  │                  react-dom.min.js
-│  │                  react.min.js
+│  │      └─vue
+│  │          └─2.5.17
+│  │                  vue.min.js
 │  │      ...
 │  │
 │  ├─components                           # 模块化组件 
-│  │      List.jsx
-│  │      List.less
+│  │      ReactApp.jsx
+│  │      ReactApp.less
+│  │      ReactApp.css
+│  │      VueApp.vue
 │  │      ...
 │  │
 │  ├─pages                                # 页面（业务）入口
-│  │      index.css
 │  │      index.js
 │  │      ...
 │  │
 │  ├─services                             # 异步请求（接口）
-│  │      indexServices.js
+│  │      commonServices.js
 │  │      ...
 │  │      
 │  └─utils                                # 工具
-│          request.js
-│          ...
+│         request.js
+│         ...
 │
 └─templates                                
         index.ejs                         # 页面（业务）主体
@@ -159,13 +163,14 @@ $("#accordion").accordion();
 <script src="/assets/vendor/jQuery-ui/1.12.1/jquery-ui.js"></script>
 ```
 
-## CSS 支持
+## JavaScript 库，框架 支持
+- jQuery
+- React
+- Vue
+
+## 样式 支持
 - CSS
 - Sass
 - Less
-- CSS Modules (*.less only)
-
-## 扩展
-TODOs:
-- 支持 vue
+- CSS Modules
 
