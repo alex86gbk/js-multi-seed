@@ -31,6 +31,7 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^8.2.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-component": "^1.1.1",
@@ -74,7 +75,7 @@
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.4.1",
     "webpack-bundle-analyzer": "^2.11.1",
-    "webpack-cli": "^2.0.13",
+    "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
