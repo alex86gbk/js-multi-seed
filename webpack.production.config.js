@@ -97,7 +97,7 @@ module.exports = {
               loader: "css-loader",
               options: {
                 modules: false,
-                url: false,
+                url: true,
                 minimize: true
               }
             },
@@ -117,7 +117,7 @@ module.exports = {
               loader: "css-loader",
               options: {
                 modules: true,
-                url: false,
+                url: true,
                 minimize: true
               }
             },
@@ -146,7 +146,13 @@ module.exports = {
       },
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-        loader: 'url-loader?limit=8192&name=assets/images/[hash:8].[name].[ext]'
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          name: '[hash:8].[name].[ext]',
+          outputPath: 'assets/images/',
+          publicPath: '/Content/assets/images/'
+        }
       }
     ]
   },
