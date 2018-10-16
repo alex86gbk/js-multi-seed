@@ -1,26 +1,26 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
-const entry = require('./config/entry');
-const plugins = require('./config/plugins');
+const entries = require('./entries');
+const plugins = require('./plugins');
 
-const { exec } = require("child_process");
-const devServerProxy = process.env.API === "local" ?
+const { exec } = require('child_process');
+const devServerProxy = process.env.API === 'local' ?
   {
-    "/api": {
-      target: "http://localhost:3000/api",
+    '/api': {
+      target: 'http://localhost:3000/api',
       pathRewrite: {'^/api' : ''}
     }
   } :
   {
-    "/api": {
-      target: "http://10.0.2.231:3333/mock/XX",
+    '/api': {
+      target: 'http://10.0.2.231:3333/mock/XX',
       pathRewrite: {'^/api' : ''}
     }
   };
-const devServerRunAfter = process.env.API === "local" ?
+const devServerRunAfter = process.env.API === 'local' ?
   function () {
-    exec('node service', (err) => {
+    exec('node mock/service', (err) => {
       if (err) {
         console.error(`exec error: ${err}`);
       }
@@ -30,17 +30,18 @@ const devServerRunAfter = process.env.API === "local" ?
   function () {};
 
 module.exports = {
-  mode: "development",
-  devtool: "source-map",
-  entry: entry,
+  mode: 'development',
+  context: path.resolve(__dirname, '..'),
+  devtool: 'source-map',
+  entry: entries,
   output: {
-    path: __dirname + "/public"
+    path: path.resolve(__dirname, '..', 'public')
   },
   devServer: {
-    contentBase: __dirname + "/public",
+    contentBase: path.resolve(__dirname, '..', 'public'),
     proxy: devServerProxy,
     historyApiFallback: true,
-    host: "0.0.0.0",
+    host: '0.0.0.0',
     inline: true,
     after: devServerRunAfter
   },
@@ -49,39 +50,39 @@ module.exports = {
       {
         test: /(\.jsx|\.js)$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               [
-                "env",
+                'env',
                 {
-                  "targets": {
-                    "browsers": [
-                      "ie > 8",
-                      "last 2 versions"
+                  'targets': {
+                    'browsers': [
+                      'ie > 8',
+                      'last 2 versions'
                     ]
                   },
-                  "useBuiltIns": true
+                  'useBuiltIns': true
                 }
               ],
-              "react",
-              "stage-0"
+              'react',
+              'stage-0'
             ],
             plugins: [
-              "transform-runtime",
+              'transform-runtime',
               [
-                "import",
+                'import',
                 {
-                  "libraryName": "antd",
-                  "libraryDirectory": "es",
-                  "style": "css"
+                  'libraryName': 'antd',
+                  'libraryDirectory': 'es',
+                  'style': 'css'
                 }
               ],
               [
-                "component",
+                'component',
                 {
-                  "libraryName": "element-ui",
-                  "styleLibraryName": "theme-chalk"
+                  'libraryName': 'element-ui',
+                  'styleLibraryName': 'theme-chalk'
                 }
               ]
             ]
@@ -93,16 +94,16 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader"
+            loader: 'style-loader'
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: false
             }
           },
           {
-            loader: "postcss-loader"
+            loader: 'postcss-loader'
           }
         ],
         exclude: /assets/
@@ -111,20 +112,20 @@ module.exports = {
         test: /\.less$/,
         use: [
           {
-            loader: "style-loader"
+            loader: 'style-loader'
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: true
             }
           },
           {
-            loader: "less-loader"
+            loader: 'postcss-loader'
           },
           {
-            loader: "postcss-loader"
-          }
+            loader: 'less-loader'
+          },
         ],
         exclude: /assets/
       },
@@ -149,11 +150,11 @@ module.exports = {
   },
   plugins: plugins,
   externals: {
-    "jQuery": "window.jQuery",
-    "React": "window.React",
-    "ReactDOM": "window.ReactDOM",
-    "react": "window.React",
-    "react-dom": "window.ReactDOM",
-    "vue": "window.Vue"
+    'jQuery': 'window.jQuery',
+    'React': 'window.React',
+    'ReactDOM': 'window.ReactDOM',
+    'react': 'window.React',
+    'react-dom': 'window.ReactDOM',
+    'vue': 'window.Vue'
   },
 };

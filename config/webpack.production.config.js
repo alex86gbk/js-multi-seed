@@ -1,86 +1,67 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
-const entry = require('./config/entry');
-const plugins = require('./config/plugins');
+const entries = require('./entries');
+const plugins = require('./plugins');
 
 plugins.push(
-  new CleanWebpackPlugin("./dist", {
-    root: __dirname,
+  new CleanWebpackPlugin('./dist', {
+    root: path.resolve(__dirname, '..'),
     verbose: true,
     dry: false
   }),
-  new ExtractTextWebpackPlugin("[name].bundle.css"),
+  new ExtractTextWebpackPlugin('[name].bundle.css'),
 );
 
 module.exports = {
-  mode: "production",
-  entry: entry,
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          chunks: "initial",
-          name: "common",
-          minChunks: 2,
-          maxInitialRequests: 5,
-          minSize: 0
-        },
-        vendor: {
-          chunks: "all",
-          test: /node_modules/,
-          name: "vendor",
-          priority: 10,
-          enforce: true
-        },
-      }
-    }
-  },
+  mode: 'production',
+  context: path.resolve(__dirname, '..'),
+  entry: entries,
   output: {
-    path: __dirname + "/dist",
-    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, '..', 'dist'),
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
       {
         test: /(\.jsx|\.js)$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               [
-                "env",
+                'env',
                 {
-                  "targets": {
-                    "browsers": [
-                      "ie > 8",
-                      "last 2 versions"
+                  'targets': {
+                    'browsers': [
+                      'ie > 8',
+                      'last 2 versions'
                     ]
                   },
-                  "useBuiltIns": true
+                  'useBuiltIns': true
                 }
               ],
-              "react",
-              "stage-0"
+              'react',
+              'stage-0'
             ],
             plugins: [
-              "transform-runtime",
+              'transform-runtime',
               [
-                "import",
+                'import',
                 {
-                  "libraryName": "antd",
-                  "libraryDirectory": "es",
-                  "style": "css"
+                  'libraryName': 'antd',
+                  'libraryDirectory': 'es',
+                  'style': 'css'
                 }
               ],
               [
-                "component",
+                'component',
                 {
-                  "libraryName": "element-ui",
-                  "styleLibraryName": "theme-chalk"
+                  'libraryName': 'element-ui',
+                  'styleLibraryName': 'theme-chalk'
                 }
               ]
             ]
@@ -91,10 +72,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextWebpackPlugin.extract({
-          fallback: "style-loader",
+          fallback: 'style-loader',
           use: [
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 modules: false,
                 url: true,
@@ -102,7 +83,7 @@ module.exports = {
               }
             },
             {
-              loader: "postcss-loader"
+              loader: 'postcss-loader'
             }
           ]
         }),
@@ -111,10 +92,10 @@ module.exports = {
       {
         test: /\.less$/,
         use: ExtractTextWebpackPlugin.extract({
-          fallback: "style-loader",
+          fallback: 'style-loader',
           use: [
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 modules: true,
                 url: true,
@@ -122,11 +103,11 @@ module.exports = {
               }
             },
             {
-              loader: "less-loader"
+              loader: 'postcss-loader'
             },
             {
-              loader: "postcss-loader"
-            }
+              loader: 'less-loader'
+            },
           ]
         }),
         exclude: /assets/
@@ -158,11 +139,31 @@ module.exports = {
   },
   plugins: plugins,
   externals: {
-    "jQuery": "window.jQuery",
-    "React": "window.React",
-    "ReactDOM": "window.ReactDOM",
-    "react": "window.React",
-    "react-dom": "window.ReactDOM",
-    "vue": "window.Vue"
+    'jQuery': 'window.jQuery',
+    'React': 'window.React',
+    'ReactDOM': 'window.ReactDOM',
+    'react': 'window.React',
+    'react-dom': 'window.ReactDOM',
+    'vue': 'window.Vue'
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          name: 'common',
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 0
+        },
+        vendor: {
+          chunks: 'all',
+          test: /node_modules/,
+          name: 'vendor',
+          priority: 10,
+          enforce: true
+        },
+      }
+    }
   },
 };

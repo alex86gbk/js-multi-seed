@@ -1,5 +1,5 @@
 # 介绍
-本项目为多页混合型应用。在支持React、Vue技术和es6新特性的同时，兼容jQuery等传统web技术的使用。
+本项目为多页混合型应用。在支持React、Vue技术和es6新特性的同时，兼容jQuery等传统Web技术的使用。
 
 # 是否兼容IE 8
 No !
@@ -41,19 +41,19 @@ npm run build
 │  gulpfile.js                            # gulp 任务，发布流程中的一环
 │  package.json                           # 项目申明，命令，依赖等描述
 │  postcss.config.js                      # postcss 配置文件
-│  README.md                              # 介绍文档（本文件）
-│  service.js                             # 本地数据服务，申明 /api 资源响应
-│  webpack.config.js                      # webpack 配置文件（开发环境）
-│  webpack.production.config.js           # webpack 配置文件（生产环境）
+│  README.md                              # 说明文档
 │  ...
 │  
-├─api                                     # /api 模拟数据
+├─mock                                    # 模拟数据
 │      common.js
+│      service.js                         
 │      ...
 │      
 ├─config                                  # 项目配置文件
 │      entry.js
 │      plugins.js
+│      webpack.config.js                   
+│      webpack.production.config.js       
 │
 ├─dist                                    # 生产环境输出目录
 ├─public                                  # 开发环境输出目录
@@ -96,6 +96,7 @@ npm run build
 │  │      ...
 │  │      
 │  └─utils                                # 工具
+│         cookie.js
 │         request.js
 │         ...
 │

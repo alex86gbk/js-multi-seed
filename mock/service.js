@@ -5,7 +5,7 @@ const express = require('express'),
   app = express();
 
 const API = {
-  common: require('./api/common')
+  common: require('./common')
 };
 
 const PORT = '3000',
