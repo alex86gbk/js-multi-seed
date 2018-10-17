@@ -5,29 +5,46 @@ const entries = require('./entries');
 const plugins = require('./plugins');
 
 const { exec } = require('child_process');
-const devServerProxy = process.env.API === 'local' ?
-  {
-    '/api': {
-      target: 'http://localhost:3000/api',
-      pathRewrite: {'^/api' : ''}
-    }
-  } :
-  {
-    '/api': {
-      target: 'http://10.0.2.231:3333/mock/XX',
-      pathRewrite: {'^/api' : ''}
-    }
-  };
-const devServerRunAfter = process.env.API === 'local' ?
-  function () {
+const { mock, publicPath } = require('../.projectrc');
+const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
+
+/** 公用发布路径 **/
+global.publicPath = devServerPublicPath;
+
+/**
+ * devServerRunAfter
+ */
+function devServerRunAfter() {
+  if (process.env.API === 'local') {
     exec('node mock/service', (err) => {
       if (err) {
         console.error(`exec error: ${err}`);
       }
     });
   }
-  :
-  function () {};
+}
+
+/**
+ * 构造代理对象
+ * @constructor
+ */
+function Proxy() {
+  let proxyTarget;
+  const proxy = {};
+
+  if (process.env.API === 'local') {
+    proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
+  } else {
+    proxyTarget = mock.YAPI;
+  }
+
+  proxy[mock.proxyPath] = {};
+  proxy[mock.proxyPath]['target'] = proxyTarget;
+  proxy[mock.proxyPath]['pathRewrite'] = {};
+  proxy[mock.proxyPath]['pathRewrite'][`^${mock.proxyPath}`] = '';
+
+  return proxy;
+}
 
 module.exports = {
   mode: 'development',
@@ -35,11 +52,12 @@ module.exports = {
   devtool: 'source-map',
   entry: entries,
   output: {
-    path: path.resolve(__dirname, '..', 'public')
+    path: path.resolve(__dirname, '..', 'public', ...publicPath),
   },
   devServer: {
     contentBase: path.resolve(__dirname, '..', 'public'),
-    proxy: devServerProxy,
+    publicPath: devServerPublicPath,
+    proxy: new Proxy(),
     historyApiFallback: true,
     host: '0.0.0.0',
     inline: true,
@@ -145,7 +163,7 @@ module.exports = {
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
         loader: 'url-loader?limit=8192&name=assets/images/[hash:8].[name].[ext]'
-      }
+      },
     ]
   },
   plugins: plugins,

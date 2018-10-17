@@ -1,15 +1,18 @@
 const fs = require('fs');
 
-const express = require('express'),
-  timeout = require('connect-timeout'),
-  app = express();
+const express = require('express');
+const timeout = require('connect-timeout');
+const app = express();
 
-const API = {
-  common: require('./common')
+const { port, proxyPath } = require('../.projectrc').mock;
+
+const PORT = port || '3000';
+const PROXY_PATH = proxyPath || '/api';
+const TIME_OUT = 30 * 1e3;
+
+const mock = {
+  common: require('./common'),
 };
-
-const PORT = '3000',
-  TIME_OUT = 30 * 1e3;
 
 app.set('port', PORT);
 
@@ -19,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 // 获取列表
-app.post('/api/common/getList', API.common.getList);
+app.post(`${PROXY_PATH}/common/getList`, mock.common.getList);
 
 app.listen(app.get('port'), () => {
   console.log(`server running @ ${app.get('port')} port`);

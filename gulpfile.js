@@ -1,9 +1,11 @@
-var gulp = require('gulp'),
-  compass = require('gulp-compass'),
-  rev = require('gulp-rev'),
-  revCollector = require('gulp-rev-collector'),
-  gulpSequence = require('gulp-sequence'),
-  del = require('del');
+const gulp = require('gulp');
+const compass = require('gulp-compass');
+const rev = require('gulp-rev');
+const revCollector = require('gulp-rev-collector');
+const gulpSequence = require('gulp-sequence');
+const del = require('del');
+
+const publicPath = require('./.projectrc').publicPath.join('/');
 
 gulp.task('compass', function () {
   return gulp.src('./src/assets/scss/**/*.scss')
@@ -16,21 +18,34 @@ gulp.task('compass', function () {
 });
 
 gulp.task('rev', function () {
-  return gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/assets/**/*.*'])
+  return gulp.src([
+    `./dist/${publicPath}/**/*.css`,
+    `./dist/${publicPath}/**/*.js`,
+    `!./dist/${publicPath}/assets/**/*.*`
+  ])
     .pipe(rev())
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest(`./dist/${publicPath}`))
     .pipe(rev.manifest())
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest(`./dist/${publicPath}`));
 });
 
 gulp.task('revCollector', function () {
-  return gulp.src(['./dist/**/*.json', './dist/**/*.html'])
+  return gulp.src([
+    `./dist/${publicPath}/**/*.json`,
+    `./dist/${publicPath}/**/*.html`
+  ])
     .pipe(revCollector())
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest(`./dist/${publicPath}`));
 });
 
 gulp.task('cleanOriginal', function () {
-  return del(['./dist/**/*.js', './dist/**/*.css', '!./dist/assets/**/*.*', '!./dist/**/*-*.js', '!./dist/**/*-*.css']);
+  return del([
+    `./dist/${publicPath}/**/*.js`,
+    `./dist/${publicPath}/**/*.css`,
+    `!./dist/${publicPath}/assets/**/*.*`,
+    `!./dist/${publicPath}/**/*-*.js`,
+    `!./dist/${publicPath}/**/*-*.css`
+  ]);
 });
 
 gulp.task('version', gulpSequence('rev', 'revCollector', 'cleanOriginal'));

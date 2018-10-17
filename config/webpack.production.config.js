@@ -7,6 +7,11 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const entries = require('./entries');
 const plugins = require('./plugins');
 
+const { publicPath } = require('../.projectrc');
+
+/** 公用发布路径 **/
+global.publicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
+
 plugins.push(
   new CleanWebpackPlugin('./dist', {
     root: path.resolve(__dirname, '..'),
@@ -21,7 +26,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: entries,
   output: {
-    path: path.resolve(__dirname, '..', 'dist'),
+    path: path.resolve(__dirname, '..', 'dist', ...publicPath),
     filename: '[name].bundle.js',
   },
   module: {
@@ -132,7 +137,7 @@ module.exports = {
           limit: 8192,
           name: '[hash:8].[name].[ext]',
           outputPath: 'assets/images/',
-          publicPath: '/Content/assets/images/'
+          publicPath: `${publicPath.length ? `/${publicPath.join('/')}` : ''}/assets/images/`
         }
       }
     ]

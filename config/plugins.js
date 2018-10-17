@@ -12,7 +12,8 @@ const options = {
 const globInstance = new Glob('**/*.ejs', options);
 const plugins = [
   new TransferWebpackPlugin([
-    { from: "assets", to: "assets" }
+    { from: "assets", to: "assets" },
+    { from: "fonts", to: "fonts" },
   ], path.resolve(__dirname, "..", "src"))
 ];
 
