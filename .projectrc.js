@@ -4,5 +4,8 @@ module.exports = {
     "proxyPath": "/api",
     "YAPI": "http://10.0.2.231:3333/mock/XX"
   },
+  "dev": {
+    "port": 8080
+  },
   "publicPath": ["Content"]
 };

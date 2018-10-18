@@ -5,7 +5,7 @@ const entries = require('./entries');
 const plugins = require('./plugins');
 
 const { exec } = require('child_process');
-const { mock, publicPath } = require('../.projectrc');
+const { mock, dev, publicPath } = require('../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
 /** 公用发布路径 **/
@@ -58,9 +58,16 @@ module.exports = {
     contentBase: path.resolve(__dirname, '..', 'public'),
     publicPath: devServerPublicPath,
     proxy: new Proxy(),
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites:[
+        { from:/./, to:`${devServerPublicPath}/404.html` }
+      ]
+    },
     host: '0.0.0.0',
+    port: dev.port || 8080,
     inline: true,
+    overlay: true,
+    stats: "errors-only",
     after: devServerRunAfter
   },
   module: {

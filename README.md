@@ -37,6 +37,7 @@ npm run build
 
 ```
 │  .editorconfig                          # 编辑器配置文件，如缩进风格，大小等
+│  .projectrc.js                          # 项目配置文件
 │  config.rb                              # compass 配置文件，如使用 sass 则需用到
 │  gulpfile.js                            # gulp 任务，发布流程中的一环
 │  package.json                           # 项目申明，命令，依赖等描述
