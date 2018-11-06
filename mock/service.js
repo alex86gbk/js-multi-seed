@@ -5,6 +5,7 @@ const express = require('express');
 const timeout = require('connect-timeout');
 const app = express();
 
+const { registerPid } = require('../config/register');
 const { port, proxyPath } = require('../.projectrc').mock;
 
 const PORT = port || '3000';
@@ -26,6 +27,5 @@ app.use((req, res, next) => {
 app.post(`${PROXY_PATH}/common/getList`, mock.common.getList);
 
 app.listen(app.get('port'), () => {
-  fs.writeFileSync(path.resolve(__dirname, '..', 'config', 'mock-server.pid'), process.pid);
+  registerPid(path.resolve(__dirname, '..', 'config', 'mock-server.pid'), process.pid);
 });
-

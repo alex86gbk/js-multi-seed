@@ -6,6 +6,7 @@ const entries = require('./entries');
 const plugins = require('./plugins');
 
 const { exec } = require('child_process');
+const { registerPid } = require('../config/register');
 const { mock, dev, publicPath } = require('../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
@@ -16,14 +17,18 @@ global.publicPath = devServerPublicPath;
  * devServerRunAfter
  */
 function devServerRunAfter() {
-  fs.writeFileSync(path.resolve(__dirname, '..', 'config', 'dev-server.pid'), process.pid);
+  registerPid(path.resolve(__dirname, '..', 'config', 'dev-server.pid'), process.pid);
 
   if (process.env.API === 'local') {
-    exec('node mock/service', (err) => {
-      if (err) {
-        console.error(`exec error: ${err}`);
-      }
-    });
+    try {
+      fs.readFileSync(path.resolve(__dirname, '..', 'config', 'mock-server.pid'));
+    } catch (err) {
+      exec('node mock/service', (err) => {
+        if (err) {
+          console.error(`exec error: ${err}`);
+        }
+      });
+    }
   }
 }
 
