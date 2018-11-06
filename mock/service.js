@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const express = require('express');
 const timeout = require('connect-timeout');
@@ -25,6 +26,6 @@ app.use((req, res, next) => {
 app.post(`${PROXY_PATH}/common/getList`, mock.common.getList);
 
 app.listen(app.get('port'), () => {
-  console.log(`server running @ ${app.get('port')} port`);
+  fs.writeFileSync(path.resolve(__dirname, '..', 'config', 'mock-server.pid'), process.pid);
 });
 

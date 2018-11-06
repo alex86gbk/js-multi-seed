@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -15,6 +16,8 @@ global.publicPath = devServerPublicPath;
  * devServerRunAfter
  */
 function devServerRunAfter() {
+  fs.writeFileSync(path.resolve(__dirname, '..', 'config', 'dev-server.pid'), process.pid);
+
   if (process.env.API === 'local') {
     exec('node mock/service', (err) => {
       if (err) {

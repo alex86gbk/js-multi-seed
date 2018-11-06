@@ -3,3 +3,5 @@ public
 dist
 .idea
 package-lock.json
+dev-server.pid
+mock-server.pid
