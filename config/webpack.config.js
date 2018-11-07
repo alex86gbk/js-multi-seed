@@ -40,10 +40,10 @@ function Proxy() {
   let proxyTarget;
   const proxy = {};
 
-  if (process.env.API === 'local') {
-    proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
-  } else {
+  if (process.env.API === 'dev') {
     proxyTarget = mock.YAPI;
+  } else {
+    proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
   }
 
   proxy[mock.proxyPath] = {};
