@@ -7,5 +7,7 @@ module.exports = {
   "dev": {
     "port": 8080
   },
-  "publicPath": ["Content"]
+  "publicPath": [
+    "Content"
+  ]
 };

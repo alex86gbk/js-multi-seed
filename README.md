@@ -12,6 +12,10 @@ No !
 
 # 使用
 
+## 工具
+
+建议配合 [jms-cli](https://github.com/alex86gbk/jms-cli) 工具管理项目，简化维护工作量，降低上手成本。
+
 ## 启动服务并使用本地数据
 ```bash
 npm run local
