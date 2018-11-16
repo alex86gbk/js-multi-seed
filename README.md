@@ -119,6 +119,8 @@ npm run build
 - `/src/pages` 中的文件为页面入口（一个 **.ejs** 对应一个 **.js** 文件）文件。
   > `/templates/`**index.ejs** 关联的入口文件为 `/src/pages/`**index.js**
 
+传送门：[如何设置/标记页面参数](https://github.com/alex86gbk/js-multi-seed/issues/8)
+
 # 一些约定
 对目录结构及描述中未提及的情况进行补充说明。
 
