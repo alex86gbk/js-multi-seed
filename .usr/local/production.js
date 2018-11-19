@@ -4,17 +4,17 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
-const entries = require('./entries');
-const plugins = require('./plugins');
+const entries = require('../include/entries');
+const plugins = require('../include/plugins');
 
-const { publicPath } = require('../.projectrc');
+const { publicPath } = require('../../.projectrc');
 
 /** 公用发布路径 **/
 global.publicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
 plugins.push(
   new CleanWebpackPlugin('./dist', {
-    root: path.resolve(__dirname, '..'),
+    root: path.resolve(__dirname, '..', '..'),
     verbose: true,
     dry: false
   }),
@@ -23,10 +23,10 @@ plugins.push(
 
 module.exports = {
   mode: 'production',
-  context: path.resolve(__dirname, '..'),
+  context: path.resolve(__dirname, '..', '..'),
   entry: entries,
   output: {
-    path: path.resolve(__dirname, '..', 'dist', ...publicPath),
+    path: path.resolve(__dirname, '..', '..', 'dist', ...publicPath),
     filename: '[name].bundle.js',
   },
   module: {

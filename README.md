@@ -40,49 +40,19 @@ npm run build
 # 目录结构及描述
 
 ```
-│  .editorconfig                          # 编辑器配置文件，如缩进风格，大小等
 │  .projectrc.js                          # 项目配置文件
-│  config.rb                              # compass 配置文件，如使用 sass 则需用到
-│  gulpfile.js                            # gulp 任务，发布流程中的一环
-│  package.json                           # 项目申明，命令，依赖等描述
-│  postcss.config.js                      # postcss 配置文件
-│  README.md                              # 说明文档
 │  ...
 │  
-├─mock                                    # 模拟数据
-│      common.js
-│      service.js                         
-│      ...
-│      
-├─config                                  # 项目配置文件
-│      entry.js
-│      plugins.js
-│      webpack.config.js                   
-│      webpack.production.config.js       
-│
+├─.usr                                    # 框架应用
+├─.var                                    # 日志等
 ├─dist                                    # 生产环境输出目录
-├─public                                  # 开发环境输出目录
+├─mock                                    # 模拟数据
+│  └─common
+│          getList.json
+│          ...
+│      
 ├─src                                     # 源文件
 │  ├─assets                               # 静态资源
-│  │  ├─css                               # 全局及第三方 CSS
-│  │  │      global.css
-│  │  │      ...
-│  │  │      
-│  │  ├─fonts                             # 字体
-│  │  ├─images                            # 图片
-│  │  └─vendor                            # 第三方组件依赖（<script></script> 方式引入）
-│  │      ├─jQuery
-│  │      │  └─1.12.4
-│  │      │          jquery.min.js
-│  │      │          
-│  │      ├─react
-│  │      │  └─16.4.1
-│  │      │          react-dom.min.js
-│  │      │          react.min.js
-│  │      │
-│  │      └─vue
-│  │          └─2.5.17
-│  │                  vue.min.js
 │  │      ...
 │  │
 │  ├─components                           # 模块化组件 
@@ -92,22 +62,20 @@ npm run build
 │  │      VueApp.vue
 │  │      ...
 │  │
-│  ├─pages                                # 页面（业务）入口
+│  ├─pages                                # 页面入口
 │  │      index.js
 │  │      ...
 │  │
-│  ├─services                             # 异步请求（接口）
+│  ├─services                             # 接口
 │  │      commonServices.js
 │  │      ...
 │  │      
 │  └─utils                                # 工具
-│         cookie.js
-│         request.js
 │         ...
 │
 └─templates                                
-        index.ejs                         # 页面（业务）主体
-        _assets.html                      # 全局静态资源依赖（script，css）
+        index.ejs                         # 页面视图
+        _assets.html                      # 全局静态资源依赖
         ...
 ```
 

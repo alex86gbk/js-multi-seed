@@ -2,6 +2,7 @@ node_modules
 public
 dist
 .idea
+.var
 package-lock.json
 dev-server.pid
 mock-server.pid

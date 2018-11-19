@@ -1,13 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
+
 const webpack = require('webpack');
 
-const entries = require('./entries');
-const plugins = require('./plugins');
+const entries = require('../include/entries');
+const plugins = require('../include/plugins');
+const { registerPid } = require('../include/registerPid');
 
-const { exec } = require('child_process');
-const { registerPid } = require('../config/register');
-const { mock, dev, publicPath } = require('../.projectrc');
+const { mock, dev, publicPath } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
 /** 公用发布路径 **/
@@ -17,13 +18,15 @@ global.publicPath = devServerPublicPath;
  * devServerRunAfter
  */
 function devServerRunAfter() {
-  registerPid(path.resolve(__dirname, '..', 'config', 'dev-server.pid'), process.pid);
+  const varPath = path.join(__dirname, '..', '..', '.var');
+
+  registerPid(varPath, 'dev-server.pid', process.pid);
 
   if (process.env.API === 'local') {
     try {
-      fs.readFileSync(path.resolve(__dirname, '..', 'config', 'mock-server.pid'));
+      fs.readFileSync(path.resolve(varPath, 'mock-server.pid'));
     } catch (err) {
-      exec('node mock/service', (err) => {
+      exec('node .usr/local/mock-server', (err) => {
         if (err) {
           console.error(`exec error: ${err}`);
         }
@@ -56,14 +59,14 @@ function Proxy() {
 
 module.exports = {
   mode: 'development',
-  context: path.resolve(__dirname, '..'),
+  context: path.resolve(__dirname, '..', '..'),
   devtool: 'source-map',
   entry: entries,
   output: {
-    path: path.resolve(__dirname, '..', 'public', ...publicPath),
+    path: path.resolve(__dirname, '..', '..', 'public', ...publicPath),
   },
   devServer: {
-    contentBase: path.resolve(__dirname, '..', 'public'),
+    contentBase: path.resolve(__dirname, '..', '..', 'public'),
     publicPath: devServerPublicPath,
     proxy: new Proxy(),
     historyApiFallback: {
