@@ -92,7 +92,10 @@
     "lodash": "4.17.5"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx}": "eslint"
+    "linters": {
+      "src/**/*.{js,jsx}": "eslint"
+    },
+    "ignore": ["src/assets/**/*.js"]
   },
   "pre-commit": [
     "lint-staged"
