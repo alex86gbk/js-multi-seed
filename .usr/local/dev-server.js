@@ -2,8 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 
-const webpack = require('webpack');
-
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
 const { registerPid } = require('../include/registerPid');
@@ -19,7 +17,6 @@ global.publicPath = devServerPublicPath;
  */
 function devServerRunAfter() {
   const varPath = path.join(__dirname, '..', '..', '.var');
-
   registerPid(varPath, 'dev-server.pid', process.pid);
 
   if (process.env.API === 'local') {
@@ -79,7 +76,7 @@ module.exports = {
     inline: true,
     overlay: true,
     stats: "errors-only",
-    after: devServerRunAfter
+    after: devServerRunAfter,
   },
   module: {
     rules: [
@@ -139,7 +136,10 @@ module.exports = {
             }
           },
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
           }
         ],
         exclude: /assets/

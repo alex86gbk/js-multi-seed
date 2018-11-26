@@ -1,3 +1,25 @@
+.demo {
+  overflow-x: hidden;
+}
+.demo fieldset {
+  border: 1px solid #ffffff;
+  margin: 10px;
+  padding: 10px;
+}
+.demo fieldset legend {
+  margin: 0;
+  padding: 0 10px;
+  width: inherit;
+  border: none;
+}
+img.arrow-down {
+  margin: 0 auto;
+  display: block
+}
+pre.pre-show {
+  margin: 20px 0
+}
+
 #top-nav {
   border-bottom: 1px solid #e1e6dd;
   background: #fff;
@@ -45,7 +67,7 @@
 
 #header {
   background: #f1f1f1;
-  padding: 100px 0
+  padding: 80px 0
 }
 
 #header h1 {
@@ -75,26 +97,6 @@
   margin: 0 0 10px 0;
   font-size: 18px;
 }
-.demo fieldset {
-  border: 1px solid #ffffff;
-  margin: 10px;
-  padding: 10px;
-}
-.demo fieldset legend {
-  margin: 0;
-  padding: 0 10px;
-  width: inherit;
-  border: none;
-}
-
-img.arrow-down {
-  margin: 0 auto;
-  display: block
-}
-
-pre.pre-show {
-  margin: 20px 0
-}
 
 .tab-content pre.pre-show {
   margin: 0
@@ -118,12 +120,6 @@ pre.pre-show {
   padding: 8px 12px
 }
 
-#footer {
-  padding: 20px 0;
-  background: #f3f3f3;
-  text-align: center
-}
-
 #demo,
 #how-to,
 #tooling {
@@ -141,6 +137,15 @@ pre.pre-show {
 #tooling h2 {
   margin: 30px 0;
 }
+#footer {
+  padding: 20px 0;
+  background: #f3f3f3;
+  text-align: center
+}
+#footer h5 {
+  margin-bottom: 0;
+}
+
 #demo-example .item {
   padding: 30px 0;
   margin: 10px;
