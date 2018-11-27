@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="yes" name="apple-touch-fullscreen">
+  <meta content="telephone=no,email=no" name="format-detection">
+  <title>Hello! Js-Multi-Seed</title>
+  ${require("html-loader?interpolate!./_assets.html")}
+  <script src="${publicPath}/assets/vendor/prettify/prettify.js"></script>
+  <link href="${publicPath}/assets/vendor/prettify/prettify.css" rel="stylesheet" />
+  <script src="${publicPath}/assets/vendor/jQuery/plugins/jquery.sky.carousel/jquery.sky.carousel-1.0.2.min.js"></script>
+  <link href="${publicPath}/assets/vendor/jQuery/plugins/jquery.sky.carousel/jquery.sky.carousel-1.0.2.min.css" rel="stylesheet" />
+</head>
+
+<body class="demo" onload="window.prettyPrint && prettyPrint();">
+<!-- navbar -->
+<div id="top-nav" class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="nav-collapse collapse">
+        <ul class="nav pull-right">
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#how-to">How To</a></li>
+          <!--<li><a href="#project-demos">Project Demos</a></li>-->
+          <li><a href="#tooling">Tooling</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header -->
+<div id="header">
+  <div class="container">
+    <div class="row">
+      <div class="span6">
+        <img class="logo" src="${publicPath}/assets/images/logo.png" alt="JMS Logo">
+      </div>
+      <div class="span6">
+        <h1>Js-Multi-Seed</h1>
+        <h3>构建多页混合型应用。同时支持React、Vue技术和ES6新特性，兼容jQuery等传统Web技术的使用。</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- demo -->
+<div id="demo">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>DEMO</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <div id="demo-example">
+          <div class="owl-wrapper-outer">
+            <div class="owl-wrapper">
+              <div class="owl-item">
+                <div class="item darkCyan">
+                  <img src="${publicPath}/assets/images/logo-jquery.png" alt="jQuery">
+                  <h3>jQuery</h3>
+                  <div class="demo-item" id="jquery_app">
+                    <div id="character-slider" class="sky-carousel sc-no-select">
+                      <div class="sky-carousel-wrapper">
+                        <ul class="sky-carousel-container">
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird1.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Snoop</h2>
+                              <p>Are you in the market for information? If so, then Snoop's the Bird for you! This Bird specialises at working undercover, discretely finding out whatever you need to know. Shhh… it's a secret, alright?</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird2.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Snappy</h2>
+                              <p>Looking for a wedding photographer? Or perhaps you want a portrait of your adorable pooch, to decorate the mantelpiece! When it comes to photography, call Snappy.</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird3.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Handy</h2>
+                              <p>Our Handy Bird loves the jobs you hate… from putting up shelves to fixing a leaky pipe, this Bird is the DIY master. </p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird4.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Blabber</h2>
+                              <p>Got a message that needs to be delivered? Or perhaps it's an urgent package you need sent. Blabber will get your mail to its recipient, faster than a speeding bullet. Well, almost.</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird5.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Wordy</h2>
+                              <p>Wordy loves to talk. No matter whether you're writing an email, a website, your resignation note or your acceptance speech - this Bird always knows what to say!</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird6.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Basher</h2>
+                              <p>When it comes to construction, Basher is the Bird for the job. From putting up fences and garden sheds, through to interior remodelling - this Bird just loves to build.</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird7.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Splasher</h2>
+                              <p>Splasher is the expert when it comes to painting. From choosing the colours for your new nursery, through to exterior weather proofing treatments: this Bird was born with a brush in its hand!</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird8.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Nerdy</h2>
+                              <p>The ultimate iBird, our Tinker has the know-how that most of us lack. If you find yourself baffled by technology, then join the club - and call on Tinker for all your IT needs.</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird9.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Thinker</h2>
+                              <p>Out of all the Birds, Thinker is the brains of the operation. Need a cunning plan delivered in a flash? From business strategies through to first class excuses, Thinker has got a plan for every scenario.</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird10.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Maestro</h2>
+                              <p>Maestro is no stranger to haute cuisine. From baking lessons through to full-scale catering operations, let Maestro cook you up a treat!</p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="${publicPath}/assets/images/jquery.sky.carousel/bird11.png" alt="" class="sc-image">
+                            <div class="sc-content">
+                              <h2>Super</h2>
+                              <p>Is it a Bird? Is it a… no hang on, it is a Bird. Our Super Bird offers the ultimate, all-in-one service. If you've got a unique problem that the other Birds can't fix, then Super is always ready to come to your rescue.</p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="item violet">
+                    <img src="${publicPath}/assets/images/React-Logo.png" alt="React">
+                    <h3>React</h3>
+                    <div class="demo-item" id="react_app"></div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="item forestGreen">
+                    <img src="${publicPath}/assets/images/Vue-logo.png" alt="Vue">
+                    <h3>Vue</h3>
+                    <div class="demo-item">
+                      <div id="vue_app"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- how to -->
+<div id="how-to">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>How To Use</h1>
+        <p>jQuery 已经默认被 JMS 依赖</p>
+        <h2>对于不支持模块化的文件，插件</h2>
+        <p>1. 在 <code>.ejs</code> 视图文件内引入文件。这里引入的是 jQuery Demo 中的 jquery.sky.carousel 插件资源。</p>
+        <pre class="pre-show prettyprint linenums">&#60;script src="&#36;&#123;publicPath}/assets/vendor/jQuery/plugins/jquery.sky.carousel/jquery.sky.carousel-1.0.2.min.js"&#62;&#60;/script&#62;
+&#60;link href="&#36;&#123;publicPath}/assets/vendor/jQuery/plugins/jquery.sky.carousel/jquery.sky.carousel-1.0.2.min.css" rel="stylesheet" /&#62;</pre>
+        <p><b>注：</b> 其中的 <code>&#36;&#123;publicPath}</code> 为发布路径，JMS 会自动解析（仅在 <code>.html</code> 、<code>.ejs</code> 文件内可用）。</p>
+        <p>2. 在入口文件内 <code>import</code> jQuery 组件。向导页的入口文件是 <code>/src/pages/guide.js</code>
+          （具体参见 <a href="https://github.com/alex86gbk/js-multi-seed#%E9%A1%B5%E9%9D%A2%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%99" target="_blank">页面（资源）规则</a>）。
+        </p>
+        <pre class="pre-show prettyprint linenums">import jQueryApp from '../components/jQueryApp';</pre>
+        <h2>使用 React 组件</h2>
+        <p>1. 不需要做其他特殊标记，只需在 <code>.ejs</code> 视图页内预留 React 根节点。</p>
+        <pre class="pre-show prettyprint linenums">&#60;div id="react_app"&#62;&#60;/div&#62;</pre>
+        <p>2. 在入口文件内 <code>import</code> React 依赖项及组件，渲染 React DOM 节点</p>
+        <pre class="pre-show prettyprint linenums">import React from 'React'
+import ReactDOM from 'ReactDOM'
+import ReactApp from '../components/ReactApp.jsx';
+import * as service from '../services/commonServices';
+
+ReactDOM.render((
+  &#60;div&#62;
+    &#60;ReactApp dispatch={service} /&#62;
+  &#60;/div&#62;
+), document.getElementById('react_app'));</pre>
+        <h2>使用 Vue 组件</h2>
+        <p>1. 不需要做其他特殊标记，只需在 <code>.ejs</code> 视图页内预留 Vue 根节点。</p>
+        <pre class="pre-show prettyprint linenums">&#60;div id="vue_app"&#62;&#60;/div&#62;</pre>
+        <p>2. 在入口文件内 <code>import</code> Vue 依赖项及组件，渲染 Vue DOM 节点</p>
+        <pre class="pre-show prettyprint linenums">import React from 'React'
+import Vue from 'vue';
+import { Carousel, CarouselItem } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import App from '../components/VueApp.vue';
+
+Vue.use(Carousel);
+Vue.use(CarouselItem);
+
+new Vue({
+  el: '#vue_app',
+  render: h => h(App)
+});</pre>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- tooling -->
+<div id="tooling">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>Tooling</h1>
+        <p>
+          <a href="https://www.npmjs.com/package/jms-cli" target="_blank">JMS-CLI</a>
+          是配套 JMS 的标准开发/管理工具。可以通过 JMS-CLI 创建新项目，管理已有项目。简化开发，维护工作量，降低上手难度。
+        </p>
+        <h2>安装 JMS-CLI</h2>
+        <pre class="pre-show prettyprint lang-bash">npm i jms-cli -g</pre>
+        <h2>JMS-CLI 命令</h2>
+        <h3>创建一个新项目：<code>create</code></h3>
+        <pre class="pre-show prettyprint lang-bash">jms create my-project</pre>
+        <code>create</code> 别名 <code>c</code>：
+        <pre class="pre-show prettyprint lang-bash">jms c my-project</pre>
+        <h3>添加一个已存在的项目：<code>add</code></h3>
+        <pre class="pre-show prettyprint lang-bash">jms add D:\my-project</pre>
+        <code>add</code> 别名 <code>a</code>：
+        <pre class="pre-show prettyprint lang-bash">jms a D:\my-project</pre>
+        <h3>项目管理控制面板：<code>console</code></h3>
+        <p>控制面板将以占用方式运行。并自动访问浏览器地址：<b><i>http://localhost:3008/console_board</i></b>。</p>
+        <pre class="pre-show prettyprint lang-bash">jms console</pre>
+        <code>console</code> 别名 <code>cb</code>：
+        <pre class="pre-show prettyprint lang-bash">jms cb</pre>
+        <h3>列出本机所有的项目：<code>list</code></h3>
+        <pre class="pre-show prettyprint lang-bash">jms list</pre>
+        <code>list</code> 别名 <code>ls</code>：
+        <pre class="pre-show prettyprint lang-bash">jms ls</pre>
+        <h3>移除项目（仅移除项目记录，不删硬盘上的文件）：<code>remove</code></h3>
+        <pre class="pre-show prettyprint lang-bash">jms remove</pre>
+        <code>remove</code> 别名 <code>rm</code>：
+        <pre class="pre-show prettyprint lang-bash">jms rm</pre>
+        <h3>更新项目基本信息：<code>refresh</code></h3>
+        <pre class="pre-show prettyprint lang-bash">jms refresh</pre>
+        <code>refresh</code> 别名 <code>re</code>：
+        <pre class="pre-show prettyprint lang-bash">jms re</pre>
+        <h3>更换 npm 源：<code>source</code></h3>
+        <pre class="pre-show prettyprint lang-bash">jms source</pre>
+        <code>source</code> 别名 <code>s</code>：
+        <pre class="pre-show prettyprint lang-bash">jms s</pre>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<div id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h5><a href="https://github.com/alex86gbk" target="_blank">AlexBian</a></h5>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

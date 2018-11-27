@@ -1,22 +1,9 @@
+/* eslint-disable */
+
+import style from './guide.css';
+
 /* jQuery */
-import $ from 'jQuery';
-import logo from '../assets/images/logo.svg';
-
-$(function () {
-  let $img = $('<img />');
-
-  $img.get(0).src = logo;
-  $img.attr({
-    width: '100%',
-    height: 300
-  });
-  $img.css({
-    marginTop: -60,
-    marginBottom: -80,
-  });
-
-  $('body').prepend($img);
-});
+import jQueryApp from '../components/jQueryApp';
 
 /* react */
 import React from 'React'

@@ -9,5 +9,6 @@ module.exports = {
   },
   "publicPath": [
     "Content"
-  ]
+  ],
+  "startPage": "/templates/guide.ejs"
 };
