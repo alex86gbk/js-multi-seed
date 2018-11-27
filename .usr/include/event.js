@@ -1,4 +1,4 @@
-function WebpackShellPlugin(options) {
+function WebpackEventPlugin(options) {
   let defaultOptions = {
     onBuildStart: function () {},
     onBuildEnd: function () {}
@@ -7,7 +7,7 @@ function WebpackShellPlugin(options) {
   this.options = Object.assign(defaultOptions, options);
 }
 
-WebpackShellPlugin.prototype.apply = function(compiler) {
+WebpackEventPlugin.prototype.apply = function(compiler) {
   const options = this.options;
 
   compiler.plugin("compilation", compilation => {
@@ -24,4 +24,4 @@ WebpackShellPlugin.prototype.apply = function(compiler) {
   });
 };
 
-module.exports = WebpackShellPlugin;
+module.exports = WebpackEventPlugin;

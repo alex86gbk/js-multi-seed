@@ -37,6 +37,10 @@ class ReactApp extends React.Component {
         this.setState({
           data: data.returnEntity,
         });
+      } else {
+        this.setState({
+          msg: '请检查 Mock 数据服务!',
+        });
       }
     });
   }

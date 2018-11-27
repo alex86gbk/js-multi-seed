@@ -1,10 +1,9 @@
+/* default */
 const path = require('path');
 const Glob = require('glob').Glob;
 
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const WebpackEventPlugin = require('./event');
 
 const options = {
   cwd: path.resolve(__dirname, '..', '..', 'templates'),
@@ -28,18 +27,26 @@ globInstance.found.forEach((page) => {
   );
 });
 
+/* vue */
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
 plugins.push(new VueLoaderPlugin);
 
 /* event */
 const opn = require('opn');
+const WebpackEventPlugin = require('./event');
 
+let isStartPageOpened = false;
 const { dev, publicPath, startPage } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 const devServerStartPage = `${devServerPublicPath}${startPage.replace(/^\/templates/, '').replace(/\.ejs$/, '.html')}`;
 
 plugins.push(new WebpackEventPlugin({
   onBuildEnd: function () {
-    opn(`http://localhost:${dev.port}${devServerStartPage}`);
+    if (!isStartPageOpened) {
+      isStartPageOpened = true;
+      opn(`http://localhost:${dev.port}${devServerStartPage}`);
+    }
   }
 }));
 
