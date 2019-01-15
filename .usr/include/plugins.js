@@ -43,7 +43,7 @@ const devServerStartPage = `${devServerPublicPath}${startPage.replace(/^\/templa
 
 plugins.push(new WebpackEventPlugin({
   onBuildEnd: function () {
-    if (!isStartPageOpened) {
+    if (!isStartPageOpened && process.env.API) {
       isStartPageOpened = true;
       opn(`http://localhost:${dev.port}${devServerStartPage}`);
     }
