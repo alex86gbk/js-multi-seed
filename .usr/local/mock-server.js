@@ -7,7 +7,9 @@ const timeout = require('connect-timeout');
 const app = express();
 
 const { registerPid } = require('../include/registerPid');
-const { port, proxyPath } = require('../../.projectrc').mock;
+const projectRc = require('../../.projectrc');
+const { port, proxyPath } = projectRc.mock;
+const reverseProxy = projectRc.reverseProxy;
 
 const globInstance = new Glob('**/*.json', {
   cwd: path.resolve(__dirname, '..', '..', 'mock'),
@@ -40,8 +42,13 @@ function useMockJSON() {
   globInstance.found.forEach((item) => {
     let filePath = item.replace(/\.json$/, '');
 
-    app.post(`${PROXY_PATH}/${filePath}`, sendMockJSON);
-    app.get(`${PROXY_PATH}/${filePath}`, sendMockJSON);
+    if (reverseProxy) {
+      app.post(`${PROXY_PATH}/${filePath}`, sendMockJSON);
+      app.get(`${PROXY_PATH}/${filePath}`, sendMockJSON);
+    } else {
+      app.post(`/${filePath}`, sendMockJSON);
+      app.get(`/${filePath}`, sendMockJSON);
+    }
   });
 }
 
@@ -63,8 +70,8 @@ function allowCrossDomain() {
  * 路由
  */
 function routers() {
-  useMockJSON();
   allowCrossDomain();
+  useMockJSON();
 }
 
 app.set('port', PORT);

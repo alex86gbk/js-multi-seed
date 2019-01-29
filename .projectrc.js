@@ -1,4 +1,5 @@
 module.exports = {
+  "reverseProxy": true,
   "mock": {
     "port": 3000,
     "proxyPath": "/api",
