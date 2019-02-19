@@ -61,10 +61,11 @@ module.exports = {
   entry: entries,
   output: {
     path: path.resolve(__dirname, '..', '..', 'public', ...publicPath),
+    publicPath: `${devServerPublicPath}/`,
   },
   devServer: {
     contentBase: path.resolve(__dirname, '..', '..', 'public'),
-    publicPath: devServerPublicPath,
+    publicPath: `${devServerPublicPath}/`,
     proxy: new Proxy(),
     historyApiFallback: {
       rewrites:[
