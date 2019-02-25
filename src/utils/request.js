@@ -1,26 +1,42 @@
 import axios from 'axios';
+import cookie from './cookie';
+import projectRC from '../../.projectrc';
 
+const { mock } = projectRC;
+const apiHost = cookie.get('ApiHost') === 'undefined' ? `http://localhost:${mock.port}` : cookie.get('ApiHost');
+
+/**
+ * 请求方法
+ * @param options
+ * @return {Promise}
+ */
 export default function request(options) {
   let errCode;
-  let defaults = {
+  const defaults = {
     headers: {
-      "Content-Type": "application/json; charset=utf-8"
+      'Content-Type': 'application/json; charset=utf-8',
     },
-    validateStatus: function (status) {
+    withCredentials: true,
+    validateStatus: (status) => {
       if (status >= 200 && status < 300) {
-        return true
+        return true;
       } else {
         errCode = status;
         return false;
       }
-    }
+    },
+    timeout: 10000,
   };
 
-  options = Object.assign(defaults, options);
+  const param = Object.assign(defaults, options);
+
+  if (!mock.ReverseProxy) {
+    param.url = apiHost + param.url;
+  }
 
   return axios.request(options)
     .then(response => response.data)
     .catch(() => {
-      console.log(errCode)
+      console.log(errCode);
     });
 }

@@ -8,16 +8,15 @@ const app = express();
 
 const { registerPid } = require('../include/registerPid');
 const projectRc = require('../../.projectrc');
-const { port, proxyPath } = projectRc.mock;
-const reverseProxy = projectRc.reverseProxy;
+const { mock } = projectRc;
 
 const globInstance = new Glob('**/*.json', {
   cwd: path.resolve(__dirname, '..', '..', 'mock'),
   sync: true,
 });
 
-const PORT = port || '3000';
-const PROXY_PATH = proxyPath || '/api';
+const PORT = mock.port || '3000';
+const PROXY_PATH = mock.proxyPath || '/api';
 const TIME_OUT = 30 * 1e3;
 
 /**
@@ -42,7 +41,7 @@ function useMockJSON() {
   globInstance.found.forEach((item) => {
     let filePath = item.replace(/\.json$/, '');
 
-    if (reverseProxy) {
+    if (mock.ReverseProxy) {
       app.post(`${PROXY_PATH}/${filePath}`, sendMockJSON);
       app.get(`${PROXY_PATH}/${filePath}`, sendMockJSON);
     } else {
