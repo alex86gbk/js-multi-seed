@@ -3,7 +3,7 @@ import cookie from './cookie';
 import projectRC from '../../.projectrc';
 
 const { mock } = projectRC;
-const apiHost = cookie.get('ApiHost') === 'undefined' ? `http://localhost:${mock.port}` : cookie.get('ApiHost');
+const apiHost = cookie.get('ApiHost') === 'undefined' ? `http://localhost:${eval('mock.port')}` : cookie.get('ApiHost');
 
 /**
  * 请求方法
@@ -34,7 +34,7 @@ export default function request(options) {
     param.url = apiHost + param.url;
   }
 
-  return axios.request(options)
+  return axios.request(param)
     .then(response => response.data)
     .catch(() => {
       console.log(errCode);
