@@ -5,6 +5,7 @@ const Glob = require('glob').Glob;
 const express = require('express');
 const timeout = require('connect-timeout');
 const app = express();
+const stripJsonComments = require('strip-json-comments');
 
 const { registerPid } = require('../include/registerPid');
 const projectRc = require('../../.projectrc');
@@ -28,10 +29,9 @@ function sendMockJSON(req, res) {
   let reg  = new RegExp('^' + PROXY_PATH + '\/');
   let reqPath = req.path.replace(reg, '');
   let filePaths = path.resolve.apply(this, [__dirname, '..', '..', 'mock'].concat(reqPath.split('/')));
-  delete require.cache[require.resolve(filePaths)];
-  let json = require(filePaths);
+  let json = fs.readFileSync(`${filePaths}.json`).toString();
 
-  res.send(json);
+  res.send(JSON.parse(stripJsonComments(json)));
 }
 
 /**
