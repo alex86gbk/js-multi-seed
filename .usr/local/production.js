@@ -6,21 +6,28 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
 
-const { publicPath } = require('../../.projectrc');
+const { mock, publicPath, publicApiHost } = require('../../.projectrc');
 
-/** 公用发布路径 **/
-global.publicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
+const servicesRule = {
+  'publicApiHost': {
+    test: /request\.js$/,
+    loader: "string-replace-loader",
+    options: {
+      multiple: [
+        {
+          search: 'http://localhost',
+          replace: publicApiHost.name
+        },
+        {
+          search: 'mock.port',
+          replace: publicApiHost.port ? publicApiHost.port : 80
+        }
+      ]
+    }
+  }
+};
 
-plugins.push(
-  new CleanWebpackPlugin('./dist', {
-    root: path.resolve(__dirname, '..', '..'),
-    verbose: true,
-    dry: false
-  }),
-  new ExtractTextWebpackPlugin('[name].bundle.css'),
-);
-
-module.exports = {
+const production = {
   mode: 'production',
   context: path.resolve(__dirname, '..', '..'),
   entry: entries,
@@ -141,7 +148,6 @@ module.exports = {
       }
     ]
   },
-  plugins: plugins,
   externals: {
     'jQuery': 'window.jQuery',
     'React': 'window.React',
@@ -171,3 +177,25 @@ module.exports = {
     }
   },
 };
+
+plugins.push(
+  new CleanWebpackPlugin('./dist', {
+    root: path.resolve(__dirname, '..', '..'),
+    verbose: true,
+    dry: false
+  }),
+  new ExtractTextWebpackPlugin('[name].bundle.css'),
+);
+
+/** 设置plugins **/
+production.plugins = plugins;
+
+/** 设置loader **/
+if (publicApiHost.name && !mock.ReverseProxy) {
+  production.module.rules.push(servicesRule.publicApiHost);
+}
+
+/** 公用发布路径 **/
+global.publicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
+
+module.exports = production;

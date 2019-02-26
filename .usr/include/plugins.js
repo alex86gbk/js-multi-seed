@@ -37,13 +37,13 @@ const opn = require('opn');
 const WebpackEventPlugin = require('./event');
 
 let isStartPageOpened = false;
-const { dev, publicPath, startPage } = require('../../.projectrc');
+const { dev, publicPath } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
-const devServerStartPage = `${devServerPublicPath}${startPage.replace(/^\/templates/, '').replace(/\.ejs$/, '.html')}`;
+const devServerStartPage = `${devServerPublicPath}${dev.startPage.replace(/^\/templates/, '').replace(/\.ejs$/, '.html')}`;
 
 plugins.push(new WebpackEventPlugin({
   onBuildEnd: function () {
-    if (!isStartPageOpened) {
+    if (!isStartPageOpened && process.env.API) {
       isStartPageOpened = true;
       opn(`http://localhost:${dev.port}${devServerStartPage}`);
     }
