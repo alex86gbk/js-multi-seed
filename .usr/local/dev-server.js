@@ -21,13 +21,13 @@ function devServerRunAfter() {
 
   if (process.env.API === 'local') {
     try {
-      fs.readFileSync(path.resolve(varPath, 'mock-server.pid'));
-    } catch (err) {
       exec('node .usr/local/mock-server', (err) => {
         if (err) {
           console.error(`exec error: ${err}`);
         }
       });
+    } catch (err) {
+      console.log(`catch error: ${err}`);
     }
   }
 }
