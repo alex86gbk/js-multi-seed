@@ -74,7 +74,8 @@ const production = {
                   'libraryName': 'element-ui',
                   'styleLibraryName': 'theme-chalk'
                 }
-              ]
+              ],
+              'transform-decorators-legacy',
             ]
           }
         },
