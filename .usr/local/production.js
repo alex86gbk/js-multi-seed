@@ -64,8 +64,7 @@ const production = {
                 'import',
                 {
                   'libraryName': 'antd',
-                  'libraryDirectory': 'es',
-                  'style': 'css'
+                  'style': true
                 }
               ],
               [
@@ -126,7 +125,28 @@ const production = {
             },
           ]
         }),
-        exclude: /assets/
+        include: /src/
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextWebpackPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'postcss-loader'
+            },
+            {
+              loader: 'less-loader',
+              options: {
+                javascriptEnabled: true,
+              }
+            },
+          ]
+        }),
+        exclude: /src/
       },
       {
         test: /\.vue$/,

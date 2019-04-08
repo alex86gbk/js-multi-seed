@@ -108,8 +108,7 @@ module.exports = {
                 'import',
                 {
                   'libraryName': 'antd',
-                  'libraryDirectory': 'es',
-                  'style': 'css'
+                  'style': true
                 }
               ],
               [
@@ -169,7 +168,28 @@ module.exports = {
             }
           },
         ],
-        exclude: /assets/
+        include: /src/
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            }
+          },
+        ],
+        exclude: /src/
       },
       {
         test: /\.vue$/,
