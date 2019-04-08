@@ -162,7 +162,10 @@ module.exports = {
             loader: 'postcss-loader'
           },
           {
-            loader: 'less-loader'
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            }
           },
         ],
         exclude: /assets/
