@@ -111,7 +111,8 @@ const production = {
               options: {
                 modules: true,
                 url: true,
-                minimize: true
+                minimize: true,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             },
             {
