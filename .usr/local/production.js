@@ -64,8 +64,7 @@ const production = {
                 'import',
                 {
                   'libraryName': 'antd',
-                  'libraryDirectory': 'es',
-                  'style': 'css'
+                  'style': true
                 }
               ],
               [
@@ -74,7 +73,8 @@ const production = {
                   'libraryName': 'element-ui',
                   'styleLibraryName': 'theme-chalk'
                 }
-              ]
+              ],
+              'transform-decorators-legacy',
             ]
           }
         },
@@ -110,18 +110,43 @@ const production = {
               options: {
                 modules: true,
                 url: true,
-                minimize: true
+                minimize: true,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             },
             {
               loader: 'postcss-loader'
             },
             {
-              loader: 'less-loader'
+              loader: 'less-loader',
+              options: {
+                javascriptEnabled: true,
+              }
             },
           ]
         }),
-        exclude: /assets/
+        include: /src/
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextWebpackPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'postcss-loader'
+            },
+            {
+              loader: 'less-loader',
+              options: {
+                javascriptEnabled: true,
+              }
+            },
+          ]
+        }),
+        exclude: /src/
       },
       {
         test: /\.vue$/,
