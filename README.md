@@ -16,7 +16,9 @@ No !
 
 ## 工具
 
-建议配合 [jms-cli](https://github.com/alex86gbk/jms-cli) 工具管理项目，简化维护工作量，降低上手成本。
+配合 [jms-cli](https://www.npmjs.com/package/jms-cli)（命令行，管理工具） ：管理项目，简化维护工作量，降低上手成本。
+
+使用 [jms-ci](https://www.npmjs.com/package/jms-ci)（可持续集成） ：一键打包，发布项目，节省运维工作量。
 
 ## 启动服务并使用本地数据
 ```bash
