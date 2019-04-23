@@ -21,13 +21,13 @@ function devServerRunAfter() {
 
   if (process.env.API === 'local') {
     try {
-      fs.readFileSync(path.resolve(varPath, 'mock-server.pid'));
-    } catch (err) {
       exec('node .usr/local/mock-server', (err) => {
         if (err) {
           console.error(`exec error: ${err}`);
         }
       });
+    } catch (err) {
+      console.log(`catch error: ${err}`);
     }
   }
 }
@@ -108,8 +108,7 @@ module.exports = {
                 'import',
                 {
                   'libraryName': 'antd',
-                  'libraryDirectory': 'es',
-                  'style': 'css'
+                  'style': true
                 }
               ],
               [
@@ -118,7 +117,8 @@ module.exports = {
                   'libraryName': 'element-ui',
                   'styleLibraryName': 'theme-chalk'
                 }
-              ]
+              ],
+              'transform-decorators-legacy',
             ]
           }
         },
@@ -154,17 +154,42 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
             }
           },
           {
             loader: 'postcss-loader'
           },
           {
-            loader: 'less-loader'
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            }
           },
         ],
-        exclude: /assets/
+        include: /src/
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            }
+          },
+        ],
+        exclude: /src/
       },
       {
         test: /\.vue$/,

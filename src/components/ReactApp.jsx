@@ -4,6 +4,39 @@ import './ReactApp.css';
 import style from './ReactApp.less';
 
 /**
+ * 无 mock-server 响应时使用
+ * @type {{returnEntity: [*]}}
+ */
+const mock = {
+  returnEntity: [
+    {
+      id: '000001',
+      name: '1',
+    },
+    {
+      id: '000002',
+      name: '2',
+    },
+    {
+      id: '000003',
+      name: '3',
+    },
+    {
+      id: '000004',
+      name: '4',
+    },
+    {
+      id: '000005',
+      name: '5',
+    },
+    {
+      id: '000006',
+      name: '6',
+    },
+  ],
+};
+
+/**
  * ReactApp
  */
 class ReactApp extends React.Component {
@@ -42,6 +75,10 @@ class ReactApp extends React.Component {
           msg: '请检查 Mock 数据服务!',
         });
       }
+    }).catch(() => {
+      this.setState({
+        data: mock.returnEntity,
+      });
     });
   }
 

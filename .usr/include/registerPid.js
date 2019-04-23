@@ -4,25 +4,29 @@ const exitHook = require('exit-hook');
 
 /**
  * 注册进程
- * @param {String} filePath
+ * @param {String} varPath
  * @param {String} pidFile
  * @param {Number} pid
  */
-function registerPid(filePath, pidFile, pid) {
-  const varPath = filePath;
+function registerPid(varPath, pidFile, pid) {
   const existVarPath = fs.existsSync(varPath);
+  const existPidFile = fs.existsSync(path.resolve(varPath, pidFile));
 
   if (!existVarPath) {
     fs.mkdirSync(varPath);
   }
 
-  fs.writeFileSync(path.resolve(filePath, pidFile), pid);
+  if (existPidFile) {
+    fs.unlinkSync(path.resolve(varPath, pidFile));
+  }
+
+  fs.writeFileSync(path.resolve(varPath, pidFile), pid);
 
   exitHook(() => {
-    let stats = fs.statSync(path.resolve(filePath, pidFile));
+    let stats = fs.statSync(path.resolve(varPath, pidFile));
 
     if (stats.isFile()) {
-      fs.unlinkSync(path.resolve(filePath, pidFile));
+      fs.unlinkSync(path.resolve(varPath, pidFile));
     }
   });
 }

@@ -1,7 +1,7 @@
 ![image](https://user-images.githubusercontent.com/1990992/48991137-9b5b1600-f16c-11e8-91be-0f2d325f60c8.png)
 
 # 介绍
-本项目为多页混合型应用。在支持React、Vue技术和es6新特性的同时，兼容jQuery等传统Web技术的使用。
+本项目为多页混合型应用。在支持React、Vue技术和es6新特性的同时，兼容jQuery等传统Web技术的使用。[演示（向导）](https://alex86gbk.github.io/js-multi-seed/Content/guide.html)
 
 # 是否兼容IE 8
 No !

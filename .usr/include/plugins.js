@@ -39,7 +39,7 @@ const WebpackEventPlugin = require('./event');
 let isStartPageOpened = false;
 const { dev, publicPath } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
-const devServerStartPage = `${devServerPublicPath}${dev.startPage.replace(/^\/templates/, '').replace(/\.ejs$/, '.html')}`;
+const devServerStartPage = `${devServerPublicPath}${dev.startPage.replace(/^\/templates/, '').replace(/\.ejs/, '.html')}`;
 
 plugins.push(new WebpackEventPlugin({
   onBuildEnd: function () {
