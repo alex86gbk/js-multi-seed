@@ -1,8 +1,8 @@
 {
   "name": "js-multi-seed",
-  "version": "0.2.3",
-  "JMSVersion": "0.2.3",
-  "alias": "js-multi-seed release 0.2.3",
+  "version": "0.2.4",
+  "JMSVersion": "0.2.4",
+  "alias": "js-multi-seed release 0.2.4",
   "description": "Multi page hybrid application. While supporting new features such as React, Vue and ES6, it is compatible with the use of traditional web technologies such as jQuery.",
   "main": "",
   "scripts": {

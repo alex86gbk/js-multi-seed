@@ -34,9 +34,18 @@ export default function request(options) {
     param.url = apiHost + param.url;
   }
 
-  return axios.request(param)
-    .then(response => response.data)
-    .catch(() => {
-      console.log(errCode);
-    });
+  if (param.sync) {
+    return param.url;
+  }
+
+  return new Promise((resolve, reject) => {
+    axios.request(param)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        console.log(errCode);
+        reject(err);
+      });
+  });
 }
