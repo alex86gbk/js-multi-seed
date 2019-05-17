@@ -1,5 +1,5 @@
-import React from 'React';
-import { Carousel } from 'antd';
+import React, { Fragment } from 'React';
+import { Carousel, Button } from 'antd';
 import './ReactApp.css';
 import style from './ReactApp.less';
 
@@ -49,6 +49,7 @@ class ReactApp extends React.Component {
 
     this.state = {
       msg: '使用 Ant Design { Carousel }',
+      msg2: '自定义主题示例：Ant Design { Button }',
       data: [],
     };
 
@@ -98,14 +99,24 @@ class ReactApp extends React.Component {
    * @return {XML}
    */
   render() {
-    const { msg, data } = this.state;
+    const { msg, data, msg2 } = this.state;
     return (
-      <div className={style.list}>
-        <div className="example">{msg}</div>
-        <Carousel autoplay>
-          {data.map(this.renderList)}
-        </Carousel>
-      </div>
+      <Fragment>
+        <div className={style.list}>
+          <div className="example">{msg}</div>
+          <Carousel autoplay>
+            {data.map(this.renderList)}
+          </Carousel>
+        </div>
+        <div className="example" style={{ marginTop: '20px' }}>{msg2}</div>
+        <div className={style.customStyle}>
+          <Button type="primary">Primary</Button>
+          <Button>Default</Button>
+          <Button type="dashed">Dashed</Button>
+          <Button type="danger">Danger</Button>
+        </div>
+        <p>全局主色：primary-color（默认值：#1890ff）、边框圆角：border-radius-base（默认值：4px）</p>
+      </Fragment>
     );
   }
 }

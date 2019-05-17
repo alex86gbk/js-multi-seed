@@ -10,7 +10,7 @@
     "lint-staged": "lint-staged",
     "dev-server": "webpack-dev-server --config .usr/local/dev-server.js",
     "mock-server": "node .usr/local/mock-server.js",
-    "webpack:production": "cross-env NODE_ENV=production webpack --config .usr/local/production.js",
+    "webpack:production": "cross-env NODE_ENV=production webpack --config .usr/local/production.js --progress",
     "local": "cross-env API=local webpack-dev-server --config .usr/local/dev-server.js",
     "dev": "cross-env API=dev webpack-dev-server --config .usr/local/dev-server.js",
     "build": "npm run webpack:production && npm run glup:version",

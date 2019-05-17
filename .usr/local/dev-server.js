@@ -9,6 +9,8 @@ const { registerPid } = require('../include/registerPid');
 const { mock, dev, publicPath } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
+const theme = require('../../themes/custom1');
+
 /** 公用发布路径 **/
 global.publicPath = devServerPublicPath;
 
@@ -185,6 +187,7 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
+              modifyVars: theme,
               javascriptEnabled: true,
             }
           },

@@ -8,6 +8,8 @@ const plugins = require('../include/plugins');
 
 const { mock, publicPath, publicApiHost } = require('../../.projectrc');
 
+const theme = require('../../themes/custom1');
+
 const servicesRule = {
   'publicApiHost': {
     test: /request\.js$/,
@@ -141,6 +143,7 @@ const production = {
             {
               loader: 'less-loader',
               options: {
+                modifyVars: theme,
                 javascriptEnabled: true,
               }
             },
