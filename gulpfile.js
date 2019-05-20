@@ -42,6 +42,7 @@ gulp.task('cleanOriginal', function () {
   return del([
     `./dist/${publicPath}/**/*.js`,
     `./dist/${publicPath}/**/*.css`,
+    `./dist/${publicPath}/rev-manifest.json`,
     `!./dist/${publicPath}/assets/**/*.*`,
     `!./dist/${publicPath}/**/*-*.js`,
     `!./dist/${publicPath}/**/*-*.css`

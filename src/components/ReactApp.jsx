@@ -86,6 +86,7 @@ class ReactApp extends React.Component {
       msg: '使用 Ant Design { Carousel }',
       msg2: '自定义主题示例：Ant Design { Button }',
       data: [],
+      changing: false,
     };
 
     this.getListData();
@@ -147,6 +148,9 @@ class ReactApp extends React.Component {
           '@border-radius-base': '2px',
         })
         .then(() => {
+          this.setState({
+            changing: false,
+          });
           message.success('修改颜色成功');
         });
     };
@@ -157,6 +161,9 @@ class ReactApp extends React.Component {
     if (this.lessLoaded) {
       changeColor();
     } else {
+      this.setState({
+        changing: true,
+      });
       window.less = {
         async: true,
         javascriptEnabled: true,
@@ -175,7 +182,7 @@ class ReactApp extends React.Component {
    * @return {XML}
    */
   render() {
-    const { msg, data, msg2 } = this.state;
+    const { msg, data, msg2, changing } = this.state;
     return (
       <Fragment>
         <div className={style.list}>
@@ -192,7 +199,7 @@ class ReactApp extends React.Component {
           <Button type="danger">Danger</Button>
         </div>
         <p>全局主色：primary-color（默认值：#1890ff）、边框圆角：border-radius-base（默认值：4px）</p>
-        <Button onClick={this.handleColorChange}>动态修改主要颜色</Button>
+        <Button onClick={this.handleColorChange} loading={changing}>动态修改主要颜色</Button>
         <div style={{ marginTop: '15px' }}>
           <span style={{ backgroundColor: '#1DA57A', width: '70px', height: '20px', display: 'inline-block' }}>#1DA57A</span>
           &nbsp;======&gt;&nbsp;
