@@ -4,8 +4,11 @@ const rev = require('gulp-rev');
 const revCollector = require('gulp-rev-collector');
 const gulpSequence = require('gulp-sequence');
 const del = require('del');
+const _ = require('lodash');
 
 const publicPath = require('./.projectrc').publicPath.join('/');
+
+const originalFiles = [];
 
 gulp.task('compass', function () {
   return gulp.src('./src/assets/scss/**/*.scss')
@@ -38,15 +41,16 @@ gulp.task('revCollector', function () {
     .pipe(gulp.dest(`./dist/${publicPath}`));
 });
 
-gulp.task('cleanOriginal', function () {
-  return del([
-    `./dist/${publicPath}/**/*.js`,
-    `./dist/${publicPath}/**/*.css`,
-    `./dist/${publicPath}/rev-manifest.json`,
-    `!./dist/${publicPath}/assets/**/*.*`,
-    `!./dist/${publicPath}/**/*-*.js`,
-    `!./dist/${publicPath}/**/*-*.css`
-  ]);
+gulp.task('getOriginal', function () {
+  const manifest = require(`./dist/${publicPath}/rev-manifest.json`);
+  _.forEach(manifest, function (value, key) {
+    originalFiles.push(`./dist/${publicPath}/${key}`);
+  });
+  originalFiles.push(`./dist/${publicPath}/rev-manifest.json`);
 });
 
-gulp.task('version', gulpSequence('rev', 'revCollector', 'cleanOriginal'));
+gulp.task('cleanOriginal', function () {
+  return del(originalFiles);
+});
+
+gulp.task('version', gulpSequence('rev', 'revCollector', 'getOriginal', 'cleanOriginal'));
