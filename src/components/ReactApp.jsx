@@ -89,6 +89,10 @@ class ReactApp extends React.Component {
     };
 
     this.getListData();
+
+    message.config({
+      top: 100,
+    });
   }
 
   /**
@@ -143,7 +147,7 @@ class ReactApp extends React.Component {
           '@border-radius-base': '2px',
         })
         .then(() => {
-          message.success('修改主要颜色成功');
+          message.success('修改颜色成功');
         });
     };
 
