@@ -8,8 +8,6 @@ const _ = require('lodash');
 
 const publicPath = require('./.projectrc').publicPath.join('/');
 
-const originalFiles = [];
-
 gulp.task('compass', function () {
   return gulp.src('./src/assets/scss/**/*.scss')
     .pipe(compass({
@@ -41,16 +39,14 @@ gulp.task('revCollector', function () {
     .pipe(gulp.dest(`./dist/${publicPath}`));
 });
 
-gulp.task('getOriginal', function () {
+gulp.task('cleanOriginal', function () {
+  const originalFiles = [];
   const manifest = require(`./dist/${publicPath}/rev-manifest.json`);
   _.forEach(manifest, function (value, key) {
     originalFiles.push(`./dist/${publicPath}/${key}`);
   });
   originalFiles.push(`./dist/${publicPath}/rev-manifest.json`);
-});
-
-gulp.task('cleanOriginal', function () {
   return del(originalFiles);
 });
 
-gulp.task('version', gulpSequence('rev', 'revCollector', 'getOriginal', 'cleanOriginal'));
+gulp.task('version', gulpSequence('rev', 'revCollector', 'cleanOriginal'));

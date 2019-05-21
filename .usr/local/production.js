@@ -5,10 +5,9 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
+const { getTheme } = require('../include/themes');
 
-const { mock, publicPath, publicApiHost } = require('../../.projectrc');
-
-const theme = require('../../themes/custom1');
+const { mock, publicPath, publicApiHost, theme } = require('../../.projectrc');
 
 const servicesRule = {
   'publicApiHost': {
@@ -143,7 +142,7 @@ const production = {
             {
               loader: 'less-loader',
               options: {
-                modifyVars: theme,
+                modifyVars: getTheme(theme),
                 javascriptEnabled: true,
               }
             },
