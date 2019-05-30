@@ -32,6 +32,8 @@ export default function request(options) {
 
   if (!mock.ReverseProxy) {
     param.url = apiHost + param.url;
+  } else {
+    param.url = mock.proxyPath + param.url;
   }
 
   if (param.sync) {
