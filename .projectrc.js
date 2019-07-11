@@ -1,10 +1,10 @@
 module.exports = {
   'theme': 'antd.default',
   'mock': {
-    'ReverseProxy': false,
+    'ReverseProxy': true,
     'port': 3000,
     'proxyPath': '/api',
-    'proxyTarget': 'http://10.0.2.231:3333/mock/XX'
+    'proxyTarget': 'http://localhost:3001/'
   },
   'dev': {
     'port': 8080,

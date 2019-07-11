@@ -201,6 +201,9 @@ const production = {
           enforce: true
         },
       }
+    },
+    runtimeChunk: {
+      name: "runtime",
     }
   },
 };
@@ -211,7 +214,10 @@ plugins.push(
     verbose: true,
     dry: false
   }),
-  new ExtractTextWebpackPlugin('[name].bundle.css'),
+  new ExtractTextWebpackPlugin({
+    filename: '[name].bundle.css',
+    allChunks: true
+  }),
 );
 
 /** 设置plugins **/

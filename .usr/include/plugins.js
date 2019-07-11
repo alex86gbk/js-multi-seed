@@ -12,9 +12,9 @@ const options = {
 const globInstance = new Glob('**/*.ejs', options);
 const plugins = [
   new TransferWebpackPlugin([
-    { from: "assets", to: "assets" },
-    { from: "fonts", to: "fonts" },
-  ], path.resolve(__dirname, "..", '..', "src"))
+    { from: "src/assets", to: "assets" },
+    { from: "src/fonts", to: "fonts" },
+  ], path.resolve(__dirname, "..", '..'))
 ];
 
 globInstance.found.forEach((page) => {
@@ -22,7 +22,7 @@ globInstance.found.forEach((page) => {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "..", "..", "templates", page),
       filename: page.replace(/\.ejs$/, '') + ".html",
-      chunks: [page.replace(/\.ejs$/, ''), "common", "vendor"],
+      chunks: [page.replace(/\.ejs$/, ''), "common", "vendor", "runtime"],
     })
   );
 });

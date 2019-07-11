@@ -8,21 +8,21 @@ const _ = require('lodash');
 
 const publicPath = require('./.projectrc').publicPath.join('/');
 
-gulp.task('compass', function () {
+gulp.task('compass', () => {
   return gulp.src('./src/assets/scss/**/*.scss')
     .pipe(compass({
       config_file: './config.rb',
       css: './src/assets/css',
-      sass: './src/assets/scss'
+      sass: './src/assets/scss',
     }))
     .pipe(gulp.dest('./src/assets/css'));
 });
 
-gulp.task('rev', function () {
+gulp.task('rev', () => {
   return gulp.src([
     `./dist/${publicPath}/**/*.css`,
     `./dist/${publicPath}/**/*.js`,
-    `!./dist/${publicPath}/assets/**/*.*`
+    `!./dist/${publicPath}/assets/**/*.*`,
   ])
     .pipe(rev())
     .pipe(gulp.dest(`./dist/${publicPath}`))
@@ -30,23 +30,28 @@ gulp.task('rev', function () {
     .pipe(gulp.dest(`./dist/${publicPath}`));
 });
 
-gulp.task('revCollector', function () {
+gulp.task('revCollector', () => {
   return gulp.src([
     `./dist/${publicPath}/**/*.json`,
-    `./dist/${publicPath}/**/*.html`
+    `./dist/${publicPath}/**/*.html`,
   ])
     .pipe(revCollector())
     .pipe(gulp.dest(`./dist/${publicPath}`));
 });
 
-gulp.task('cleanOriginal', function () {
+gulp.task('cleanOriginal', () => {
   const originalFiles = [];
   const manifest = require(`./dist/${publicPath}/rev-manifest.json`);
-  _.forEach(manifest, function (value, key) {
+  _.forEach(manifest, (value, key) => {
     originalFiles.push(`./dist/${publicPath}/${key}`);
   });
   originalFiles.push(`./dist/${publicPath}/rev-manifest.json`);
   return del(originalFiles);
 });
 
-gulp.task('version', gulpSequence('rev', 'revCollector', 'cleanOriginal'));
+gulp.task('copyPublic', () => {
+  gulp.src('./public/**/*.*')
+    .pipe(gulp.dest(`./dist/${publicPath}`));
+});
+
+gulp.task('version', gulpSequence('rev', 'revCollector', 'cleanOriginal', 'copyPublic'));
