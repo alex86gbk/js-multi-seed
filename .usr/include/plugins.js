@@ -22,7 +22,8 @@ globInstance.found.forEach((page) => {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "..", "..", "templates", page),
       filename: page.replace(/\.ejs$/, '') + ".html",
-      chunks: [page.replace(/\.ejs$/, ''), "common", "vendor", "runtime"],
+      chunks: ["runtime", "vendor", "common", page.replace(/\.ejs$/, '')],
+      chunksSortMode: 'manual',
     })
   );
 });
