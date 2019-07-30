@@ -200,8 +200,26 @@ const production = {
           chunks: 'all',
           test: /node_modules/,
           name: 'vendor',
-          priority: 10,
+          priority: 1,
           enforce: true
+        },
+        'vendor~antd': {
+          chunks: 'all',
+          test: (module) => {
+            return /antd|@ant-design/.test(module.context);
+          },
+          name: 'vendor~antd',
+          priority: 2,
+          enforce: true,
+        },
+        'vendor~moment': {
+          chunks: 'all',
+          test: (module) => {
+            return /moment/.test(module.context);
+          },
+          name: 'vendor~moment',
+          priority: 2,
+          enforce: true,
         },
       }
     },
