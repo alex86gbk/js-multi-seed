@@ -13,7 +13,6 @@ const globInstance = new Glob('**/*.ejs', options);
 const plugins = [
   new TransferWebpackPlugin([
     { from: "src/assets", to: "assets" },
-    { from: "src/fonts", to: "fonts" },
   ], path.resolve(__dirname, "..", '..'))
 ];
 
@@ -27,11 +26,6 @@ globInstance.found.forEach((page) => {
     })
   );
 });
-
-/* vue */
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-
-plugins.push(new VueLoaderPlugin);
 
 /* event */
 const opn = require('opn');

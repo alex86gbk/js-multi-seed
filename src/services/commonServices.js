@@ -7,8 +7,8 @@ import request from '../utils/request';
  */
 export async function getList(params) {
   return request({
-    url: '/api/common/getList',
-    method: "POST",
-    data: params.payload
+    url: '/common/getList',
+    method: 'POST',
+    data: params.payload,
   });
 }

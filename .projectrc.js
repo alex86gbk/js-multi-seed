@@ -8,7 +8,7 @@ module.exports = {
   },
   'dev': {
     'port': 8080,
-    'startPage': '/templates/guide.ejs',
+    'startPage': '/templates/index.ejs',
   },
   'publicPath': [
     'Content'

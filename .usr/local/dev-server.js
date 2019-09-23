@@ -127,13 +127,6 @@ const developer = {
                   'style': true
                 }
               ],
-              [
-                'component',
-                {
-                  'libraryName': 'element-ui',
-                  'styleLibraryName': 'theme-chalk'
-                }
-              ],
               'transform-decorators-legacy',
             ]
           }
@@ -209,19 +202,6 @@ const developer = {
         exclude: /src/
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            css: 'vue-style-loader!css-loader',
-            less: 'vue-style-loader!css-loader!less-loader'
-          },
-          postLoaders: {
-            html: 'babel-loader'
-          }
-        }
-      },
-      {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
         loader: 'url-loader?limit=8192&name=assets/images/[hash:8].[name].[ext]'
       },
@@ -234,7 +214,6 @@ const developer = {
     'ReactDOM': 'window.ReactDOM',
     'react': 'window.React',
     'react-dom': 'window.ReactDOM',
-    'vue': 'window.Vue'
   },
 };
 

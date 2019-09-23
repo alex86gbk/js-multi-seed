@@ -68,13 +68,6 @@ const production = {
                   'style': true
                 }
               ],
-              [
-                'component',
-                {
-                  'libraryName': 'element-ui',
-                  'styleLibraryName': 'theme-chalk'
-                }
-              ],
               'transform-decorators-legacy',
             ]
           }
@@ -154,19 +147,6 @@ const production = {
         exclude: /src/
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            css: 'vue-style-loader!css-loader',
-            less: 'vue-style-loader!css-loader!less-loader'
-          },
-          postLoaders: {
-            html: 'babel-loader'
-          }
-        }
-      },
-      {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
         loader: 'url-loader',
         options: {
@@ -184,7 +164,6 @@ const production = {
     'ReactDOM': 'window.ReactDOM',
     'react': 'window.React',
     'react-dom': 'window.ReactDOM',
-    'vue': 'window.Vue'
   },
   optimization: {
     splitChunks: {
