@@ -89,6 +89,7 @@ const developer = {
       ]
     },
     host: '0.0.0.0',
+    disableHostCheck: true,
     port: dev.port || 8080,
     inline: true,
     overlay: true,
