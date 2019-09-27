@@ -8,7 +8,11 @@
   <meta content="yes" name="apple-touch-fullscreen">
   <meta content="telephone=no,email=no" name="format-detection">
   <title>Hello! Js-Multi-Seed</title>
-  <!--[if lt IE 10]><script src="/js-multi-seed/Content/assets/vendor/babel-polyfill/polyfill.min.js"></script><![endif]-->
+  <script>
+  if (!!window.ActiveXObject || "ActiveXObject" in window) {
+    document.writeln('<script src="/js-multi-seed/Content/assets/vendor/babel-polyfill/polyfill.min.js"' + '>' + '<' + '/' + 'script>');
+  }
+  </script>
   <script src="/js-multi-seed/Content/assets/vendor/jQuery/1.12.4/jquery.min.js"></script>
   <script src="/js-multi-seed/Content/assets/vendor/react/16.4.1/react.min.js"></script>
   <script src="/js-multi-seed/Content/assets/vendor/react/16.4.1/react-dom.min.js"></script>
