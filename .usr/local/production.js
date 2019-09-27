@@ -5,10 +5,9 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
+const { getTheme } = require('../include/themes');
 
-const { mock, publicPath, publicApiHost } = require('../../.projectrc');
-
-const theme = require('../../themes/custom1');
+const { mock, publicPath, publicApiHost, theme } = require('../../.projectrc');
 
 const servicesRule = {
   'publicApiHost': {
@@ -136,6 +135,9 @@ const production = {
           use: [
             {
               loader: 'css-loader',
+              options: {
+                minimize: true
+              }
             },
             {
               loader: 'postcss-loader'
@@ -143,7 +145,7 @@ const production = {
             {
               loader: 'less-loader',
               options: {
-                modifyVars: theme,
+                modifyVars: getTheme(theme),
                 javascriptEnabled: true,
               }
             },
@@ -198,10 +200,31 @@ const production = {
           chunks: 'all',
           test: /node_modules/,
           name: 'vendor',
-          priority: 10,
+          priority: 1,
           enforce: true
         },
+        'vendor~antd': {
+          chunks: 'all',
+          test: (module) => {
+            return /antd|@ant-design/.test(module.context);
+          },
+          name: 'vendor~antd',
+          priority: 2,
+          enforce: true,
+        },
+        'vendor~moment': {
+          chunks: 'all',
+          test: (module) => {
+            return /moment/.test(module.context);
+          },
+          name: 'vendor~moment',
+          priority: 2,
+          enforce: true,
+        },
       }
+    },
+    runtimeChunk: {
+      name: "runtime",
     }
   },
 };
@@ -212,7 +235,10 @@ plugins.push(
     verbose: true,
     dry: false
   }),
-  new ExtractTextWebpackPlugin('[name].bundle.css'),
+  new ExtractTextWebpackPlugin({
+    filename: '[name].bundle.css',
+    allChunks: true
+  }),
 );
 
 /** 设置plugins **/

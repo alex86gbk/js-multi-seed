@@ -1,6 +1,15 @@
-<!--[if lt IE 10]><script src="${publicPath}/assets/vendor/babel-polyfill/polyfill.min.js"></script><![endif]-->
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="yes" name="apple-touch-fullscreen">
+  <meta content="telephone=no,email=no" name="format-detection">
+  <script>
+    var JMSPublicPath = "${publicPath}";
+    if (!!window.ActiveXObject || "ActiveXObject" in window) {
+      document.writeln('<script src="${publicPath}/assets/vendor/babel-polyfill/polyfill.min.js"' + '>' + '<' + '/' + 'script>');
+    }
+  </script>
   <script src="${publicPath}/assets/vendor/jQuery/1.12.4/jquery.min.js"></script>
   <script src="${publicPath}/assets/vendor/react/16.4.1/react.min.js"></script>
   <script src="${publicPath}/assets/vendor/react/16.4.1/react-dom.min.js"></script>
   <script src="${publicPath}/assets/vendor/vue/2.5.17/vue.min.js"></script>
-  <link href="${publicPath}/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" />

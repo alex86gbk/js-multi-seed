@@ -1,19 +1,20 @@
 module.exports = {
-  "mock": {
-    "ReverseProxy": true,
-    "port": 3000,
-    "proxyPath": "/api",
-    "YAPI": "http://10.0.2.231:3333/mock/XX"
+  'theme': 'antd.default',
+  'mock': {
+    'ReverseProxy': true,
+    'port': 3000,
+    'proxyPath': '/api',
+    'proxyTarget': 'http://localhost:3001/'
   },
-  "dev": {
-    "port": 8080,
-    "startPage": "/templates/guide.ejs",
+  'dev': {
+    'port': 8080,
+    'startPage': '/templates/index.ejs',
   },
-  "publicPath": [
-    "Content"
+  'publicPath': [
+    'Content'
   ],
-  "publicApiHost": {
-    "name": "http://10.0.2.151",
-    "port": "81"
+  'publicApiHost': {
+    'name': 'http://10.0.2.151',
+    'port': '81'
   },
 };

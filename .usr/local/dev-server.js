@@ -4,12 +4,26 @@ const { exec } = require('child_process');
 
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
+const { getTheme } = require('../include/themes');
 const { registerPid } = require('../include/registerPid');
 
-const { mock, dev, publicPath } = require('../../.projectrc');
+const { mock, dev, publicPath, theme } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
-const theme = require('../../themes/custom1');
+const servicesRule = {
+  'proxyUrl': {
+    test: /request\.js$/,
+    loader: "string-replace-loader",
+    options: {
+      multiple: [
+        {
+          search: 'mock.ReverseProxy',
+          replace: 'true'
+        }
+      ]
+    }
+  }
+};
 
 /** 公用发布路径 **/
 global.publicPath = devServerPublicPath;
@@ -43,7 +57,7 @@ function Proxy() {
   const proxy = {};
 
   if (process.env.API === 'dev') {
-    proxyTarget = mock.YAPI;
+    proxyTarget = mock.proxyTarget;
   } else {
     proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
   }
@@ -56,7 +70,7 @@ function Proxy() {
   return proxy;
 }
 
-module.exports = {
+const developer = {
   mode: 'development',
   context: path.resolve(__dirname, '..', '..'),
   devtool: 'source-map',
@@ -187,7 +201,7 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
-              modifyVars: theme,
+              modifyVars: getTheme(theme),
               javascriptEnabled: true,
             }
           },
@@ -223,3 +237,9 @@ module.exports = {
     'vue': 'window.Vue'
   },
 };
+
+if (process.env.API === 'dev') {
+  developer.module.rules.push(servicesRule.proxyUrl);
+}
+
+module.exports = developer;
