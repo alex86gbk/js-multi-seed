@@ -1,10 +1,5 @@
 /* eslint-disable */
 
-import style from './guide.css';
-
-/* jQuery */
-import jQueryApp from '../components/jQueryApp';
-
 /* react */
 import React from 'React'
 import ReactDOM from 'ReactDOM'
