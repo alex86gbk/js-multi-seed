@@ -2,6 +2,7 @@ const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const cssnano = require('cssnano');
 
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
@@ -91,11 +92,17 @@ const production = {
               options: {
                 modules: false,
                 url: true,
-                minimize: true
               }
             },
             {
-              loader: 'postcss-loader'
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  cssnano({
+                    preset: 'default',
+                  })
+                ],
+              },
             }
           ]
         }),
@@ -109,10 +116,10 @@ const production = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: {
+                  localIdentName: '[name]__[local]__[hash:base64:5]'
+                },
                 url: true,
-                minimize: true,
-                localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             },
             {
@@ -135,12 +142,16 @@ const production = {
           use: [
             {
               loader: 'css-loader',
-              options: {
-                minimize: true
-              }
             },
             {
-              loader: 'postcss-loader'
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  cssnano({
+                    preset: 'default',
+                  })
+                ],
+              },
             },
             {
               loader: 'less-loader',
