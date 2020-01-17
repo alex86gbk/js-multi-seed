@@ -1,4 +1,4 @@
-const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { exec } = require('child_process');
 
@@ -25,8 +25,12 @@ const servicesRule = {
   }
 };
 
+const totalMemory = dealMem(os.totalmem());
+const freeMemory = dealMem(os.freemem());
+
 /** 公用发布路径 **/
 global.publicPath = devServerPublicPath;
+global.proxyPath = mock.proxyPath;
 
 /**
  * devServerRunAfter
@@ -46,6 +50,16 @@ function devServerRunAfter() {
       console.log(`catch error: ${err}`);
     }
   }
+}
+
+function dealMem(mem) {
+  let G = 0;
+  let M = 0;
+  let KB = 0;
+  (mem > (1 << 30)) && (G = (mem / (1 << 30)).toFixed(2));
+  (mem > (1 << 20)) && (mem < (1 << 30)) && (M = (mem / (1 << 20)).toFixed(2));
+  (mem > (1 << 10)) && (mem > (1 << 20)) && (KB = (mem / (1 << 10)).toFixed(2));
+  return G > 0 ? G + 'G' : M > 0 ? M + 'M' : KB > 0 ? KB + 'KB' : mem + 'B';
 }
 
 /**
@@ -73,7 +87,11 @@ function Proxy() {
 const developer = {
   mode: 'development',
   context: path.resolve(__dirname, '..', '..'),
-  devtool: 'source-map',
+  devtool: totalMemory.match(/G$/) && freeMemory.match(/G$/)
+    ? parseInt(totalMemory) >= 6 && parseInt(freeMemory) >= 3
+      ? 'cheap-module-eval-source-map'
+      : 'source-map'
+    : 'source-map',
   entry: entries,
   output: {
     path: path.resolve(__dirname, '..', '..', 'public', ...publicPath),
@@ -93,53 +111,28 @@ const developer = {
     port: dev.port || 8080,
     inline: true,
     overlay: true,
-    stats: "errors-only",
+    stats: 'errors-only',
+    noInfo: true,
     after: devServerRunAfter,
+  },
+  watch: true,
+  watchOptions: {
+    ignored: ['node_modules', 'assets/vendor/**/*.js'],
+    aggregateTimeout: 1000,
+    poll: 1000,
+  },
+  cache: {
+    type: 'memory'
   },
   module: {
     rules: [
       {
         test: /(\.jsx|\.js)$/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                'env',
-                {
-                  'targets': {
-                    'browsers': [
-                      'ie > 8',
-                      'last 2 versions'
-                    ]
-                  },
-                  'useBuiltIns': true
-                }
-              ],
-              'react',
-              'stage-0'
-            ],
-            plugins: [
-              'transform-runtime',
-              [
-                'import',
-                {
-                  'libraryName': 'antd',
-                  'style': true
-                }
-              ],
-              [
-                'component',
-                {
-                  'libraryName': 'element-ui',
-                  'styleLibraryName': 'theme-chalk'
-                }
-              ],
-              'transform-decorators-legacy',
-            ]
-          }
+          loader: 'happypack/loader?id=happypack-babel-loader',
         },
-        exclude: /node_modules/
+        include: [path.resolve(__dirname, '..', '..', 'src')],
+        exclude: /node_modules|assets/
       },
       {
         test: /\.css$/,
