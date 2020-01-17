@@ -1,0 +1,20 @@
+#!/usr/bin/env node --harmony
+
+const process = require('process');
+const { spawn } = require('child_process');
+
+const v8MemoryLimited = 3072;
+const webpackConfigFile = '.usr/local/production.js';
+
+spawn(
+  'cross-env',
+  [
+    'NODE_ENV=production',
+    `NODE_OPTIONS=\"--max-old-space-size=${v8MemoryLimited}\"`,
+    `webpack --config ${webpackConfigFile}`
+  ],
+  {
+    stdio: 'inherit',
+    shell: process.platform === 'win32'
+  }
+);

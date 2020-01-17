@@ -1,3 +1,4 @@
+/* https://webpack.js.org/api/compiler-hooks/#root */
 function WebpackEventPlugin(options) {
   let defaultOptions = {
     onBuildStart: function () {},
@@ -10,17 +11,16 @@ function WebpackEventPlugin(options) {
 WebpackEventPlugin.prototype.apply = function(compiler) {
   const options = this.options;
 
-  compiler.plugin("compilation", compilation => {
+  compiler.hooks.compilation.tap("onBuildStart", compilation => {
     if(typeof options.onBuildStart === 'function'){
       options.onBuildStart();
     }
   });
 
-  compiler.plugin("emit", (compilation, callback) => {
+  compiler.hooks.emit.tap("onBuildEnd", params => {
     if(typeof options.onBuildEnd === 'function'){
       options.onBuildEnd();
     }
-    callback();
   });
 };
 

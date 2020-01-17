@@ -1,36 +1,91 @@
 /* default */
+const os = require('os');
 const path = require('path');
 const Glob = require('glob').Glob;
 
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin-to-multihtml');
+const HappyPack = require('happypack');
+const opn = require('opn');
+const WebpackEventPlugin = require('./event');
 
+const plugins = [
+  new ProgressBarPlugin(),
+  new CopyPlugin(
+    [
+      { from: "assets", to: "assets" },
+    ],
+    {
+      context: path.resolve(__dirname, "..", '..', "src")
+    }
+  )
+];
+
+/* HtmlWebpackPlugin */
+const { title } = require('../../.projectrc');
 const options = {
   cwd: path.resolve(__dirname, '..', '..', 'templates'),
   sync: true,
 };
 const globInstance = new Glob('**/*.ejs', options);
-const plugins = [
-  new TransferWebpackPlugin([
-    { from: "src/assets", to: "assets" },
-  ], path.resolve(__dirname, "..", '..'))
-];
-
 globInstance.found.forEach((page) => {
   plugins.push(
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "..", "..", "templates", page),
       filename: page.replace(/\.ejs$/, '') + ".html",
-      chunks: ["runtime", "vendor", "vendor~antd", "vendor~moment", "common", page.replace(/\.ejs$/, '')],
+      chunks: ["manifest", "vendor", "vendor~antd", "vendor~moment", "common", page.replace(/\.ejs$/, '')],
       chunksSortMode: 'manual',
+      multihtmlCache: true,
     })
   );
 });
 
-/* event */
-const opn = require('opn');
-const WebpackEventPlugin = require('./event');
+/* happypack */
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const createHappyPlugin = (id, loaders) => new HappyPack({
+  id: id,
+  loaders: loaders,
+  threadPool: happyThreadPool,
+  verbose: process.env.HAPPY_VERBOSE === '1'
+});
+plugins.push(createHappyPlugin('happypack-babel-loader',
+  [{
+    loader: 'babel-loader',
+    options: {
+      cacheDirectory: true,
+      presets: [
+        [
+          'env',
+          {
+            'targets': {
+              'browsers': [
+                'ie > 8',
+                'last 2 versions'
+              ]
+            },
+            'useBuiltIns': true
+          }
+        ],
+        'react',
+        'stage-0'
+      ],
+      plugins: [
+        'transform-runtime',
+        [
+          'import',
+          {
+            'libraryName': 'antd',
+            'style': true
+          }
+        ],
+        'transform-decorators-legacy',
+      ]
+    },
+  }]
+));
 
+/* opn */
 let isStartPageOpened = false;
 const { dev, publicPath } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
@@ -41,6 +96,9 @@ plugins.push(new WebpackEventPlugin({
     if (!isStartPageOpened && process.env.API) {
       isStartPageOpened = true;
       opn(`http://localhost:${dev.port}${devServerStartPage}`);
+      setTimeout(function () {
+        console.log(`\r\nThe project is running at: http://localhost:${dev.port}`);
+      }, 100);
     }
   }
 }));

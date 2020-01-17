@@ -42,38 +42,10 @@ const production = {
       {
         test: /(\.jsx|\.js)$/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                'env',
-                {
-                  'targets': {
-                    'browsers': [
-                      'ie > 8',
-                      'last 2 versions'
-                    ]
-                  },
-                  'useBuiltIns': true
-                }
-              ],
-              'react',
-              'stage-0'
-            ],
-            plugins: [
-              'transform-runtime',
-              [
-                'import',
-                {
-                  'libraryName': 'antd',
-                  'style': true
-                }
-              ],
-              'transform-decorators-legacy',
-            ]
-          }
+          loader: 'happypack/loader?id=happypack-babel-loader',
         },
-        exclude: /node_modules/
+        include: [path.resolve(__dirname, '..', '..', 'src')],
+        exclude: /node_modules|assets/
       },
       {
         test: /\.css$/,
@@ -214,7 +186,7 @@ const production = {
       }
     },
     runtimeChunk: {
-      name: "runtime",
+      name: "manifest",
     }
   },
 };
@@ -241,5 +213,6 @@ if (publicApiHost.name && !mock.ReverseProxy) {
 
 /** 公用发布路径 **/
 global.publicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
+global.proxyPath = mock.proxyPath;
 
 module.exports = production;
