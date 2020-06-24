@@ -14,10 +14,11 @@ const plugins = [
   new ProgressBarPlugin(),
   new CopyPlugin(
     [
-      { from: "assets", to: "assets" },
+      { from: "src/assets", to: "assets" },
+      { from: "public", to: "" },
     ],
     {
-      context: path.resolve(__dirname, "..", '..', "src")
+      context: path.resolve(__dirname, "..", '..')
     }
   )
 ];
