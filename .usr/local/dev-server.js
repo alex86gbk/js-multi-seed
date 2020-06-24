@@ -78,6 +78,7 @@ function Proxy() {
 
   proxy[mock.proxyPath] = {};
   proxy[mock.proxyPath]['target'] = proxyTarget;
+  proxy[mock.proxyPath]['changeOrigin'] = true;
   proxy[mock.proxyPath]['pathRewrite'] = {};
   proxy[mock.proxyPath]['pathRewrite'][`^${mock.proxyPath}`] = '';
 
