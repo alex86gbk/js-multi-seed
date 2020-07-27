@@ -17,4 +17,5 @@ module.exports = {
     'name': 'http://10.0.2.151',
     'port': '81'
   },
+  'rewriteDotHtml': true,
 };

@@ -7,7 +7,7 @@ const plugins = require('../include/plugins');
 const { getTheme } = require('../include/themes');
 const { registerPid } = require('../include/registerPid');
 
-const { mock, dev, publicPath, theme } = require('../../.projectrc');
+const { mock, dev, publicPath, theme, rewriteDotHtml } = require('../../.projectrc');
 const devServerPublicPath = publicPath.length ? `/${publicPath.join('/')}` : '';
 
 const servicesRule = {
@@ -33,9 +33,9 @@ global.publicPath = devServerPublicPath;
 global.proxyPath = mock.proxyPath;
 
 /**
- * devServerRunAfter
+ * 启动mock服务
  */
-function devServerRunAfter() {
+function runMockServer() {
   const varPath = path.join(__dirname, '..', '..', '.var');
   registerPid(varPath, 'dev-server.pid', process.pid);
 
@@ -85,6 +85,28 @@ function Proxy() {
   return proxy;
 }
 
+/**
+ * 构造URL改写规则
+ * @constructor
+ */
+function RewriteRules() {
+  const rewriteDotHtmlReg = new RegExp(`^${devServerPublicPath}/.*$`);
+  const rewriteRules = [
+    { from: /./, to: `${devServerPublicPath}/404.html` }
+  ];
+  if (rewriteDotHtml) {
+    rewriteRules.unshift(
+      {
+        from: rewriteDotHtmlReg, to: function (context) {
+          return `${context.parsedUrl.pathname}.html`;
+        }
+      }
+    )
+  }
+
+  return rewriteRules;
+}
+
 const developer = {
   mode: 'development',
   context: path.resolve(__dirname, '..', '..'),
@@ -103,9 +125,7 @@ const developer = {
     publicPath: `${devServerPublicPath}/`,
     proxy: new Proxy(),
     historyApiFallback: {
-      rewrites:[
-        { from:/./, to:`${devServerPublicPath}/404.html` }
-      ]
+      rewrites: new RewriteRules(),
     },
     host: '0.0.0.0',
     disableHostCheck: true,
@@ -114,7 +134,7 @@ const developer = {
     overlay: true,
     stats: 'errors-only',
     noInfo: true,
-    after: devServerRunAfter,
+    after: runMockServer,
   },
   watch: true,
   watchOptions: {
@@ -216,8 +236,7 @@ const developer = {
     'React': 'window.React',
     'ReactDOM': 'window.ReactDOM',
     'react': 'window.React',
-    'react-dom': 'window.ReactDOM',
-    'echarts': 'window.echarts',
+    'react-dom': 'window.ReactDOM'
   },
 };
 
