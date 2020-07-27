@@ -33,6 +33,7 @@ const globInstance = new Glob('**/*.ejs', options);
 globInstance.found.forEach((page) => {
   plugins.push(
     new HtmlWebpackPlugin({
+      title: title,
       template: path.resolve(__dirname, "..", "..", "templates", page),
       filename: page.replace(/\.ejs$/, '') + ".html",
       chunks: ["manifest", "vendor", "vendor~antd", "vendor~moment", "common", page.replace(/\.ejs$/, '')],
