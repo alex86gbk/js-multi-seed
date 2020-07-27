@@ -11,7 +11,7 @@ const { registerPid } = require('../include/registerPid');
 const projectRc = require('../../.projectrc');
 const { mock } = projectRc;
 
-const globInstance = new Glob('**/*.json', {
+const globInstance = new Glob('**/*.*', {
   cwd: path.resolve(__dirname, '..', '..', 'mock'),
   sync: true,
 });
@@ -29,9 +29,14 @@ function sendMockJSON(req, res) {
   let reg  = new RegExp('^' + PROXY_PATH + '\/');
   let reqPath = req.path.replace(reg, '');
   let filePaths = path.resolve.apply(this, [__dirname, '..', '..', 'mock'].concat(reqPath.split('/')));
-  let json = fs.readFileSync(`${filePaths}.json`).toString();
 
-  res.send(JSON.parse(stripJsonComments(json)));
+  if (!fs.existsSync(`${filePaths}.json`)) {
+    let txt = fs.readFileSync(`${filePaths}.txt`).toString();
+    res.send(JSON.stringify(txt));
+  } else {
+    let json = fs.readFileSync(`${filePaths}.json`).toString();
+    res.send(JSON.parse(stripJsonComments(json)));
+  }
 }
 
 /**
@@ -39,7 +44,7 @@ function sendMockJSON(req, res) {
  */
 function useMockJSON() {
   globInstance.found.forEach((item) => {
-    let filePath = item.replace(/\.json$/, '');
+    let filePath = item.replace(/\.json$|\.txt$/, '');
 
     if (mock.ReverseProxy) {
       app.post(`${PROXY_PATH}/${filePath}`, sendMockJSON);

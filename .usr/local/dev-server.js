@@ -78,6 +78,7 @@ function Proxy() {
 
   proxy[mock.proxyPath] = {};
   proxy[mock.proxyPath]['target'] = proxyTarget;
+  proxy[mock.proxyPath]['changeOrigin'] = true;
   proxy[mock.proxyPath]['pathRewrite'] = {};
   proxy[mock.proxyPath]['pathRewrite'][`^${mock.proxyPath}`] = '';
 
@@ -102,8 +103,8 @@ const developer = {
     publicPath: `${devServerPublicPath}/`,
     proxy: new Proxy(),
     historyApiFallback: {
-      rewrites:[
-        { from:/./, to:`${devServerPublicPath}/404.html` }
+      rewrites: [
+        { from: /./, to: `${devServerPublicPath}/404.html` }
       ]
     },
     host: '0.0.0.0',
