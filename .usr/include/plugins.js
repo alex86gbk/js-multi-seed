@@ -5,7 +5,8 @@ const Glob = require('glob').Glob;
 
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin-to-multihtml');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInjector = require('html-webpack-injector');
 const HappyPack = require('happypack');
 const opn = require('opn');
 const WebpackEventPlugin = require('./event');
@@ -35,10 +36,10 @@ globInstance.found.forEach((page) => {
     new HtmlWebpackPlugin({
       title: title,
       template: path.resolve(__dirname, "..", "..", "templates", page),
-      filename: page.replace(/\.ejs$/, '') + ".html",
+      filename: page.replace(/\.ejs$/, '.html'),
       chunks: ["manifest", "vendor", "vendor~antd", "vendor~moment", "common", page.replace(/\.ejs$/, '')],
       chunksSortMode: 'manual',
-      multihtmlCache: true,
+      cache: true,
     })
   );
 });
