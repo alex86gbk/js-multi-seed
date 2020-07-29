@@ -6,6 +6,8 @@ import { rewriteDotHtml } from '../../.projectrc.js';
  * JMS导航组件
  * 使用方式和 a 标签一样
  * @param {*} props
+ * @example
+ *   <JMSLink href={`${JMSPublicPath}/Admin/index.html`}>统计分析</JMSLink>
  */
 export const JMSLink = ({ children, ...props }) => {
   const allProps = { ...props };
@@ -29,6 +31,57 @@ export const JMSLink = ({ children, ...props }) => {
  * @param {object|array} config
  * @param {string} key
  * @return {object|array}
+ * @example
+ *   以 Ant design Menu导航菜单组件配置项为例
+ *   const menuDataMap = {
+ *     '5': {
+ *       name: '导航菜单A',
+ *       menuData: [
+ *         {
+ *           'Key': 'NavMenuA',
+ *           'Name': '导航菜单A',
+ *           'Icon': 'bar-chart',
+ *           'Children': [
+ *             {
+ *               'Key': 'NavMenuA.SubA',
+ *               'Name': '菜单A',
+ *               'Link': 'Admin/pageA.html',
+ *             },
+ *             {
+ *               'Key': 'NavMenuA.SubB',
+ *               'Name': '菜单B',
+ *               'Link': 'Admin/pageB.html',
+ *             },
+ *           ],
+ *         },
+ *       ],
+ *     },
+ *   };
+ *   console.log(JSMLinkHandler(menuDataMap, 'Link'));
+ *   {
+ *     '5': {
+ *       name: '导航菜单A',
+ *       menuData: [
+ *         {
+ *           'Key': 'NavMenuA',
+ *           'Name': '导航菜单A',
+ *           'Icon': 'bar-chart',
+ *           'Children': [
+ *             {
+ *               'Key': 'NavMenuA.SubA',
+ *               'Name': '菜单A',
+ *               'Link': 'Admin/pageA',
+ *             },
+ *             {
+ *               'Key': 'NavMenuA.SubB',
+ *               'Name': '菜单B',
+ *               'Link': 'Admin/pageB',
+ *             },
+ *           ],
+ *         },
+ *       ],
+ *     },
+ *   };
  */
 export const JSMLinkHandler = (config, key) => {
   const handler = {
