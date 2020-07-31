@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -200,7 +201,7 @@ const production = {
       }
     },
     runtimeChunk: {
-      name: "runtime",
+      name: "manifest",
     }
   },
 };
@@ -215,6 +216,19 @@ plugins.push(
     filename: '[name].bundle.css',
     allChunks: true
   }),
+  function () {
+    this.hooks.done.tap('done', (stats) => {
+      if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') == -1) {
+        console.log(stats.compilation.errors);
+        const publicPath = path.resolve(__dirname, '..', '..', 'dist');
+        if (!fs.existsSync(publicPath)) {
+          fs.mkdirSync(publicPath);
+        }
+        fs.writeFileSync(path.resolve(publicPath, 'error.txt'), stats.compilation.errors, 'utf8');
+        process.exit(1);
+      }
+    })
+  }
 );
 
 /** 设置plugins **/

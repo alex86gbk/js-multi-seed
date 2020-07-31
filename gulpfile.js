@@ -68,10 +68,10 @@ gulp.task('cleanOriginal', gulp.series((done) => {
   done();
 }));
 
-gulp.task('copyPublic', (done) => {
+gulp.task('copyPublic', gulp.series((done) => {
   gulp.src('./public/**/*.*')
     .pipe(gulp.dest(`./dist/${publicPath}`));
   done();
-});
+}));
 
 gulp.task('version', gulp.series('uglifyJS', 'cleanCSS', 'rev', 'revCollector', 'cleanOriginal', 'copyPublic'));

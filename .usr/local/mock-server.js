@@ -26,7 +26,7 @@ const TIME_OUT = 30 * 1e3;
  * @param res
  */
 function sendMockJSON(req, res) {
-  let reg  = new RegExp('^' + PROXY_PATH + '\/');
+  let reg = new RegExp('^' + PROXY_PATH + '\/');
   let reqPath = req.path.replace(reg, '');
   let filePaths = path.resolve.apply(this, [__dirname, '..', '..', 'mock'].concat(reqPath.split('/')));
 
@@ -60,7 +60,7 @@ function useMockJSON() {
  * 允许跨域
  */
 function allowCrossDomain() {
-  app.all('*', function(req, res, next) {
+  app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
