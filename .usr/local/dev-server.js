@@ -126,10 +126,10 @@ const developer = {
   },
   resolve: {
     extensions: [
-      '.js',
-      '.jsx',
       '.ts',
       '.tsx',
+      '.js',
+      '.jsx',
     ],
   },
   devServer: {

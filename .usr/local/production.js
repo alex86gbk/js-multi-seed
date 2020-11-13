@@ -40,10 +40,10 @@ const production = {
   },
   resolve: {
     extensions: [
-      '.js',
-      '.jsx',
       '.ts',
       '.tsx',
+      '.js',
+      '.jsx',
     ],
   },
   module: {
