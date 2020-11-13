@@ -7,7 +7,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInjector = require('html-webpack-injector');
-const HappyPack = require('happypack');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const opn = require('opn');
 const WebpackEventPlugin = require('./event');
 
@@ -21,8 +21,19 @@ const plugins = [
     {
       context: path.resolve(__dirname, "..", '..')
     }
-  )
+  ),
+  new HtmlWebpackInjector()
 ];
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(
+    new HardSourceWebpackPlugin({
+      cachePrune: {
+        sizeThreshold: 200 * 1024 * 1024
+      },
+    }),
+  )
+}
 
 /* HtmlWebpackPlugin */
 const { title } = require('../../.projectrc');
@@ -43,50 +54,6 @@ globInstance.found.forEach((page) => {
     })
   );
 });
-
-/* happypack */
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-const createHappyPlugin = (id, loaders) => new HappyPack({
-  id: id,
-  loaders: loaders,
-  threadPool: happyThreadPool,
-  verbose: process.env.HAPPY_VERBOSE === '1'
-});
-plugins.push(createHappyPlugin('happypack-babel-loader',
-  [{
-    loader: 'babel-loader',
-    options: {
-      cacheDirectory: true,
-      presets: [
-        [
-          'env',
-          {
-            'targets': {
-              'browsers': [
-                'ie > 8',
-                'last 2 versions'
-              ]
-            },
-            'useBuiltIns': true
-          }
-        ],
-        'react',
-        'stage-0'
-      ],
-      plugins: [
-        'transform-runtime',
-        [
-          'import',
-          {
-            'libraryName': 'antd',
-            'style': true
-          }
-        ],
-        'transform-decorators-legacy',
-      ]
-    },
-  }]
-));
 
 /* opn */
 let isStartPageOpened = false;

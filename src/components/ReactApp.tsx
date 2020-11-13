@@ -1,13 +1,29 @@
-import React, { Fragment } from 'React';
+import React, { ReactNode } from 'React';
 import { Carousel, message } from 'antd';
 import './ReactApp.css';
 import style from './ReactApp.less';
+
+interface Props {
+  dispatch: {
+    getList<T>(payload: any): Promise<T>
+  }
+}
+
+interface State {
+  msg: string;
+  data: MockData[]
+}
+
+interface MockData {
+  id: string,
+  name: string,
+};
 
 /**
  * 无 mock-server 响应时使用
  * @type {{returnEntity: [*]}}
  */
-const mock = {
+const mock: { returnEntity: MockData[] } = {
   returnEntity: [
     {
       id: '000001',
@@ -39,21 +55,19 @@ const mock = {
 /**
  * ReactApp
  */
-class ReactApp extends React.Component {
+class ReactApp extends React.Component<Props, State> {
+  readonly state: Readonly<State> = {
+    msg: '使用 Ant Design { Carousel }',
+    data: [],
+  }
+
+  lessLoaded: boolean = false;
   /**
    * 构造方法
    * @param props
    */
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-
-    this.lessLoaded = false;
-
-    this.state = {
-      msg: '使用 Ant Design { Carousel }',
-      data: [],
-    };
-
     this.getListData();
 
     message.config({
@@ -71,7 +85,7 @@ class ReactApp extends React.Component {
       payload: {
         id: 123,
       },
-    }).then((data) => {
+    }).then((data: { returnEntity: MockData[] }) => {
       if (data) {
         this.setState({
           data: data.returnEntity,
@@ -91,7 +105,7 @@ class ReactApp extends React.Component {
   /**
    * 渲染列表
    */
-  renderList = (item) => {
+  renderList = (item: MockData) => {
     return (
       <div key={item.id}>
         <h3>{item.name}</h3>
@@ -103,17 +117,17 @@ class ReactApp extends React.Component {
    * 渲染
    * @return {XML}
    */
-  render() {
+  render(): ReactNode {
     const { msg, data } = this.state;
     return (
-      <Fragment>
+      <>
         <div className={style.list}>
           <div className="example">{msg}</div>
           <Carousel autoplay>
             {data.map(this.renderList)}
           </Carousel>
         </div>
-      </Fragment>
+      </>
     );
   }
 }

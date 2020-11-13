@@ -30,7 +30,7 @@ const freeMemory = dealMem(os.freemem());
 
 /** 公用发布路径 **/
 global.publicPath = devServerPublicPath;
-global.proxyPath = mock.proxyPath;
+global.proxyPath = process.env.API ? mock.proxyPath : '';
 
 /**
  * 启动mock服务
@@ -73,7 +73,11 @@ function Proxy() {
   if (process.env.API === 'dev') {
     proxyTarget = mock.proxyTarget;
   } else {
-    proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
+    if (mock.ReverseProxy) {
+      proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
+    } else {
+      proxyTarget = `http://localhost:${mock.port}`;
+    }
   }
 
   proxy[mock.proxyPath] = {};
@@ -120,6 +124,14 @@ const developer = {
     path: path.resolve(__dirname, '..', '..', 'public', ...publicPath),
     publicPath: `${devServerPublicPath}/`,
   },
+  resolve: {
+    extensions: [
+      '.js',
+      '.jsx',
+      '.ts',
+      '.tsx',
+    ],
+  },
   devServer: {
     contentBase: path.resolve(__dirname, '..', '..', 'public'),
     publicPath: `${devServerPublicPath}/`,
@@ -148,9 +160,21 @@ const developer = {
   module: {
     rules: [
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.jsx|\.js|\.tsx|\.ts)$/,
         use: {
-          loader: 'happypack/loader?id=happypack-babel-loader',
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript'
+            ],
+            plugins: [
+              ['import', { libraryName: 'antd', style: true }],
+              ["@babel/plugin-proposal-class-properties", { "loose": true }],
+              ['@babel/plugin-transform-runtime']
+            ],
+          }
         },
         include: [path.resolve(__dirname, '..', '..', 'src')],
         exclude: /node_modules|assets/

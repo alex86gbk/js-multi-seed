@@ -8,7 +8,7 @@ const apiMap = {
   local: 'local',
   dev: 'dev'
 };
-const v8MemoryLimited = 3072;
+const v8MemoryLimited = 8 * 1024;
 const webpackConfigFile = '.usr/local/dev-server.js';
 
 spawn(

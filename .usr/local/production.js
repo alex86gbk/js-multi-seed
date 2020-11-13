@@ -38,12 +38,32 @@ const production = {
     path: path.resolve(__dirname, '..', '..', 'dist', ...publicPath),
     filename: '[name].bundle.js',
   },
+  resolve: {
+    extensions: [
+      '.js',
+      '.jsx',
+      '.ts',
+      '.tsx',
+    ],
+  },
   module: {
     rules: [
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.jsx|\.js|\.tsx|\.ts)$/,
         use: {
-          loader: 'happypack/loader?id=happypack-babel-loader',
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript'
+            ],
+            plugins: [
+              ['import', { libraryName: 'antd', style: true }],
+              ["@babel/plugin-proposal-class-properties", { "loose": true }],
+              ['@babel/plugin-transform-runtime']
+            ],
+          }
         },
         include: [path.resolve(__dirname, '..', '..', 'src')],
         exclude: /node_modules|assets/

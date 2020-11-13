@@ -5,7 +5,7 @@ import request from '../utils/request';
  * @param params
  * @return {Promise.<Object>}
  */
-export async function getList(params) {
+export async function getList<T>(params: any): Promise<T> {
   return request({
     url: '/common/getList',
     method: 'POST',
