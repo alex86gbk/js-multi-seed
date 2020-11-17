@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "moduleResolution": "node",
-    "allowJs": true,
+    //"allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "preserve",
@@ -14,8 +14,8 @@
       "es2017"
     ],
     "skipLibCheck": true,
-    "exclude": [
-      "assets",
-    ]
-  }
+  },
+  "exclude": [
+    "assets",
+  ]
 }
