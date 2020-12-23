@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "allowJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    },
     "moduleResolution": "node",
-    //"allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "preserve",
-    "noUnusedParameters": true,
     "noUnusedLocals": true,
     "target": "es6",
     "lib": [
@@ -14,8 +18,16 @@
       "es2017"
     ],
     "skipLibCheck": true,
+    "outDir": "/"
   },
   "exclude": [
+    ".usr",
+    ".var",
+    ".projectrc.js",
     "assets",
+    "mock",
+    "public",
+    "themes",
+    "node_modules",
   ]
 }

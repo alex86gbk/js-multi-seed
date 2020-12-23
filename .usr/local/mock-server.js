@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const chalk = require('chalk');
 const Glob = require('glob').Glob;
 const express = require('express');
 const timeout = require('connect-timeout');
@@ -91,4 +92,5 @@ app.listen(app.get('port'), () => {
   const varPath = path.join(__dirname, '..', '..', '.var');
 
   registerPid(varPath, 'mock-server.pid', process.pid);
+  console.log(`\r\nThe mock server proxyPath: ${chalk.green(PROXY_PATH)} at: ${chalk.green(`http://localhost:${PORT}`)}\r\n`);
 });

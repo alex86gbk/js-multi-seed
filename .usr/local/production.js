@@ -45,6 +45,9 @@ const production = {
       '.js',
       '.jsx',
     ],
+    alias: {
+      'src': path.join(__dirname,'..','..', 'src'),
+    }
   },
   module: {
     rules: [
@@ -184,7 +187,7 @@ const production = {
           test: /node_modules/,
           name: 'vendor',
           priority: 1,
-          enforce: true
+          enforce: true,
         },
         'vendor~antd': {
           chunks: 'all',
@@ -204,7 +207,7 @@ const production = {
           priority: 2,
           enforce: true,
         },
-      }
+      },
     },
     runtimeChunk: {
       name: "manifest",

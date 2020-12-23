@@ -1,6 +1,7 @@
 const os = require('os');
 const path = require('path');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
+const chalk = require('chalk');
 
 const entries = require('../include/entries');
 const plugins = require('../include/plugins');
@@ -35,20 +36,16 @@ global.proxyPath = process.env.API ? mock.proxyPath : '';
 /**
  * 启动mock服务
  */
-function runMockServer() {
-  const varPath = path.join(__dirname, '..', '..', '.var');
-  registerPid(varPath, 'dev-server.pid', process.pid);
-
+function devServerRunAfter() {
   if (process.env.API === 'local') {
-    try {
-      exec('node .usr/local/mock-server', (err) => {
-        if (err) {
-          console.error(`exec error: ${err}`);
-        }
-      });
-    } catch (err) {
-      console.log(`catch error: ${err}`);
-    }
+    const varPath = path.join(__dirname, '..', '..', '.var');
+    registerPid(varPath, 'dev-server.pid', process.pid);
+    spawn('node', ['.usr/local/mock-server'],
+      {
+        stdio: 'inherit',
+        shell: process.platform === 'win32'
+      }
+    );
   }
 }
 
@@ -72,6 +69,7 @@ function Proxy() {
 
   if (process.env.API === 'dev') {
     proxyTarget = mock.proxyTarget;
+    console.log(`\r\nThe proxyTarget: ${chalk.green(mock.proxyPath)} at: ${chalk.green(proxyTarget)}\r\n`);
   } else {
     if (mock.ReverseProxy) {
       proxyTarget = `http://localhost:${mock.port}${mock.proxyPath}`;
@@ -131,6 +129,9 @@ const developer = {
       '.js',
       '.jsx',
     ],
+    alias: {
+      'src': path.join(__dirname,'..','..', 'src'),
+    }
   },
   devServer: {
     contentBase: path.resolve(__dirname, '..', '..', 'public'),
@@ -146,7 +147,7 @@ const developer = {
     overlay: true,
     stats: 'errors-only',
     noInfo: true,
-    after: runMockServer,
+    after: devServerRunAfter,
   },
   watch: true,
   watchOptions: {
@@ -160,7 +161,7 @@ const developer = {
   module: {
     rules: [
       {
-        test: /(\.jsx|\.js|\.tsx|\.ts)$/,
+        test: /\.(t|j)sx?$/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -171,7 +172,7 @@ const developer = {
             ],
             plugins: [
               ['import', { libraryName: 'antd', style: true }],
-              ["@babel/plugin-proposal-class-properties", { "loose": true }],
+              ['@babel/plugin-proposal-class-properties', { 'loose': true }],
               ['@babel/plugin-transform-runtime']
             ],
           }
