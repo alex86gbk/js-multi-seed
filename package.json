@@ -57,7 +57,7 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
     "exit-hook": "2.0.0",
-    "express": "4.16.3",
+    "express": "4.17.3",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "1.1.11",
     "glob": "7.1.2",
